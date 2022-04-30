@@ -2,4 +2,9 @@
 <section name="Workbench">
 	<section name="ImportExportAction">
 	</section>
+<<<<<<< HEAD
+	<section name="FileSystemImportWizard">
+	</section>
+=======
+>>>>>>> 118bf06641ba2e4b0214996115a6ab8d9dd1b155
 </section>
