@@ -1,60 +1,66 @@
 package com.empresa.apiRest_DataPrint.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "usuarios")
-public class Usuarios {
+public class Usuarios implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "idusuarios")
+    private Long idusuarios;
 
     @Column(name = "usuario", nullable = true, length = 45)
     private String usuario;
 
     @Column(name = "clave", nullable = true, length = 45)
     private String clave;
-
-    @Column(name = "tipuser")
-    private String tipuser;
-
     @Column(name = "fecrea")
     private LocalDate fecrea;
 
     @Column(name = "hocrea")
     private LocalTime hocrea;
 
-    public Usuarios(int id, String usuario, String clave, String tipuser, LocalDate fecrea, LocalTime hocrea) {
-        this.id = id;
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+    @JoinColumn(name = "usuaRoles")
+    private Roles usuaRoles;
+
+    public Usuarios(Long idusuarios, String usuario, String clave, LocalDate fecrea, LocalTime hocrea,
+            Roles usuaRoles) {
+        this.idusuarios = idusuarios;
         this.usuario = usuario;
         this.clave = clave;
-        this.tipuser = tipuser;
         this.fecrea = fecrea;
         this.hocrea = hocrea;
+        this.usuaRoles = usuaRoles;
     }
 
     public Usuarios() {
         super();
     }
 
-    public int getId() {
-        return id;
+    public Long getIdusuarios() {
+        return idusuarios;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdusuarios(Long idusuarios) {
+        this.idusuarios = idusuarios;
     }
 
     public String getUsuario() {
@@ -73,14 +79,6 @@ public class Usuarios {
         this.clave = clave;
     }
 
-    public String getTipuser() {
-        return tipuser;
-    }
-
-    public void setTipuser(String tipuser) {
-        this.tipuser = tipuser;
-    }
-
     public LocalDate getFecrea() {
         return fecrea;
     }
@@ -96,5 +94,13 @@ public class Usuarios {
     public void setHocrea(LocalTime hocrea) {
         this.hocrea = hocrea;
     }
-    
+
+    public Roles getUsuaRoles() {
+        return usuaRoles;
+    }
+
+    public void setUsuaRoles(Roles usuaRoles) {
+        this.usuaRoles = usuaRoles;
+    }
+
 }

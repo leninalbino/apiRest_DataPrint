@@ -1,5 +1,31 @@
 package com.empresa.apiRest_DataPrint.model;
 
-public class Ventas {
-    
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "venta")
+public class Ventas implements Serializable{
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idventas")
+    private Long idventas;
+
+    @Column(name = "precioTotal")
+    private float precioTotal;
+
+    @Column(name = "fecvent")
+    private LocalDate fecvent;
 }
