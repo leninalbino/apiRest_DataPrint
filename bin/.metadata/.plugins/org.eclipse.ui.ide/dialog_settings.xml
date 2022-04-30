@@ -6,9 +6,15 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+<<<<<<< HEAD
 			<item value="C:\Users\kirby\OneDrive - Universidad Tecnologica del Peru\Desktop\apiRest_DataPrint"/>
 		</list>
 	</section>
 	<section name="ExternalProjectImportWizard">
 	</section>
+=======
+			<item value="C:\IDAT\Ciclo_6\Desarrollo_de_Aplicaciones_Móviles_II\TRABAJO FINAL\apiRest_DataPrint"/>
+		</list>
+	</section>
+>>>>>>> 118bf06641ba2e4b0214996115a6ab8d9dd1b155
 </section>
