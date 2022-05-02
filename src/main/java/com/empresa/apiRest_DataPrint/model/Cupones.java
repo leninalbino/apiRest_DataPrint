@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -22,8 +24,14 @@ public class Cupones implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idcupones")
     private Long idcupones;
+    private String cupon;
     @Column(name = "venciCupon")
     private LocalDate venciCupon;
     @Column(name = "descuCupon")
     private LocalDate descuCupon;
+    
+    @ManyToOne
+    @JoinColumn(name = "caracteristica_id")
+    private Caracteristicas caracteristica;
+    
 }

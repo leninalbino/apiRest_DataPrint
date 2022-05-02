@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -20,5 +22,12 @@ public class Carrito implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCarrito;
     private Integer cantidad;
+    @ManyToOne
+    @JoinColumn(name="caracteristica_id")
+    private Caracteristicas caracateristica;
+    
+    @ManyToOne
+    @JoinColumn(name="usuario_id")
+    private Usuarios usuario;
 
 }

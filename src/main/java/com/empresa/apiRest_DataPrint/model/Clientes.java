@@ -9,7 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Data;
 
@@ -28,14 +32,17 @@ public class Clientes implements Serializable {
     private String apellido;
     @Column(name = "telefono", nullable = true, length = 45)
     private String telefono;
-    @Column(name = "usuario", nullable = true, length = 45)
-    private String usuario;
-    @Column(name = "clave", nullable = true, length = 45)
-    private String clave;
     @Column(name = "fecrea")
+    
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate fecrea;
-    @Column(name = "hocrea")
-    private LocalTime hocre;
+    
+    @Column(name="direcc")
+    private String direcc;
+    
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuarios usuario;
 
    
 

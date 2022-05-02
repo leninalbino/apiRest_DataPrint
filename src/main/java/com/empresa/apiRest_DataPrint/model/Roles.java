@@ -1,7 +1,9 @@
 package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,37 +32,8 @@ public class Roles  implements Serializable{
     private String tipuser; 
 
     @OneToMany(mappedBy = "usuaRoles",cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
-    private Set<Usuarios> usuarios= new HashSet<>();
+    private List<Usuarios> usuarios = new ArrayList<>();
 
-    public Roles(Long idrol, String tipuser, Set<Usuarios> usuarios) {
-        this.idrol = idrol;
-        this.tipuser = tipuser;
-        this.usuarios = usuarios;
-    }
-
-    public Long getIdrol() {
-        return idrol;
-    }
-
-    public void setIdrol(Long idrol) {
-        this.idrol = idrol;
-    }
-
-    public String getTipuser() {
-        return tipuser;
-    }
-
-    public void setTipuser(String tipuser) {
-        this.tipuser = tipuser;
-    }
-
-    public Set<Usuarios> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(Set<Usuarios> usuarios) {
-        this.usuarios = usuarios;
-    }
-
+    
     
 }
