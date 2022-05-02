@@ -1,8 +1,24 @@
+bin
 HELP.md
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+.mvn
+.project
+.classpath	
+mvnw
+mvnw.cmd
+!**/src/main/**
+!**/src/test/**
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin
+
+# others
+src/main/resources/application.properties
 
 ### STS ###
 bin
