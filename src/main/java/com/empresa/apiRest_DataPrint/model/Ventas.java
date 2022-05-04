@@ -2,6 +2,7 @@ package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +33,7 @@ public class Ventas implements Serializable{
 
     @Column(name = "fecvent")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate fecvent;
+    private Date fecvent;
     
     @ManyToOne
     @JoinColumn(name="pago_id")
