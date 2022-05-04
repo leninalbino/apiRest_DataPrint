@@ -2,6 +2,7 @@ package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 import lombok.Data;
 
@@ -29,6 +31,6 @@ public class Pagos implements Serializable {
     private String estado;
     
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate fecha;
+    private Date fecha;
 
 }

@@ -2,7 +2,7 @@ package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,7 +37,7 @@ public class Usuarios implements Serializable {
     
     @Column(name = "fecrea")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate fecrea;
+    private Date fecrea;
 
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
     @JoinColumn(name = "usuaRoles")

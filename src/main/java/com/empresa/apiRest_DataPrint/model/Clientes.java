@@ -1,8 +1,7 @@
 package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,10 +31,10 @@ public class Clientes implements Serializable {
     private String apellido;
     @Column(name = "telefono", nullable = true, length = 45)
     private String telefono;
-    @Column(name = "fecrea")
     
+    @Column(name = "fecrea")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate fecrea;
+    private Date  fecrea;
     
     @Column(name="direcc")
     private String direcc;
