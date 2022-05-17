@@ -27,8 +27,8 @@ public class Cupones implements Serializable{
     private String cupon;
     @Column(name = "venciCupon")
     private LocalDate venciCupon;
-    @Column(name = "descuCupon")
-    private LocalDate descuCupon;
+    
+    private float porcentajeDesc;
     
     @ManyToOne
     @JoinColumn(name = "caracteristica_id")
