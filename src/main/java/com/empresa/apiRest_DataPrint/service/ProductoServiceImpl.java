@@ -29,5 +29,11 @@ public class ProductoServiceImpl implements ProductoService{
 		// TODO Auto-generated method stub
 		productoRepo.save(producto);
 	}
+
+	@Override
+	public Producto buscarProductoId(Long id) {
+		
+		return productoRepo.findByIdProductoPro(id);
+	}
 	 
 }
