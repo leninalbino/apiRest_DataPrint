@@ -21,8 +21,8 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "productos")
-public class Producto  {
-    //private static final long serialVersionUID = 1L;
+public class Producto implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idProductoPro")
