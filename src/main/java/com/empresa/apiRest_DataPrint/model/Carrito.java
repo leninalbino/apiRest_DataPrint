@@ -17,8 +17,9 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "carrito")
-public class Carrito {
-    //private static final long serialVersionUID = 1L;
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
+public class Carrito implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +28,10 @@ public class Carrito {
 
     @ManyToOne
     @JoinColumn(name="caracteristica_id")
-    @JsonIgnoreProperties
     private Caracteristicas caracateristica;
     
     @ManyToOne
     @JoinColumn(name="usuario_id")
-    @JsonIgnoreProperties
     private Usuarios usuario;
 
 }

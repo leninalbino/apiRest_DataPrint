@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 @Data
@@ -32,6 +33,7 @@ public class Roles  implements Serializable{
     private String tipuser; 
 
     @OneToMany(mappedBy = "usuaRoles",cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @JsonIgnoreProperties("usuaRoles")
     private List<Usuarios> usuarios = new ArrayList<>();
 
     
