@@ -28,10 +28,15 @@ public class Carrito implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="caracteristica_id")
-    private Caracteristicas caracateristica;
+    private Caracteristicas caracteristica;
     
     @ManyToOne
     @JoinColumn(name="usuario_id")
     private Usuarios usuario;
 
+    public void agregarCantidad(Integer cantidad){
+        if(cantidad > 0){
+            this.cantidad+=cantidad;
+        }
+    }
 }
