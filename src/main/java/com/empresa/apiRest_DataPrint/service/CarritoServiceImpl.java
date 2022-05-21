@@ -9,6 +9,9 @@ import com.empresa.apiRest_DataPrint.repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CarritoServiceImpl implements  CarritoService{
     @Autowired
@@ -20,12 +23,46 @@ public class CarritoServiceImpl implements  CarritoService{
     @Override
     public Carrito agregarCarrito(Integer cantidad,Long caracteristica, Long usuario) {
         Caracteristicas caracteristicas = caracteristicaRepository.findById(caracteristica).get();
-        Usuarios usuarios = usuariosRepository.findById(usuario).get();
-        Carrito carrito = new Carrito();
-        carrito.setCantidad(cantidad);
-        carrito.setCaracateristica(caracteristicas);
-        carrito.setUsuario(usuarios);
+        Usuarios usuarios = usuariosRepository.findById(usuario).orElse(null);
+        Carrito carrito=carritoRepository.encontrarItem(usuario,caracteristica);
+        if(carrito!= null){
+            carrito.agregarCantidad(cantidad);
+        }else{
+            carrito = new Carrito();
+            carrito.setCantidad(cantidad);
+            carrito.setCaracteristica(caracteristicas);
+            carrito.setUsuario(usuarios);
+        }
         carritoRepository.save(carrito);
         return carrito;
     }
+
+    @Override
+    public List<Carrito> listarCarrito(Long idUsuario, Long idCaracteristica) {
+        return carritoRepository.listarCarrito(idUsuario,idCaracteristica);
+    }
+
+    @Override
+    public Optional eliminarItemCarrito(Long id) {
+        List<Carrito> carrito = carritoRepository.findAll();
+        if(id != null){
+            carrito.stream().filter(item -> (item.getIdCarrito() == id)).findFirst();
+            carritoRepository.deleteById(id);
+        }
+        return null;
+    }
+
+    @Override
+    public Carrito actualizarItemCarrito(Long cantidad, Long id) {
+        Carrito carrito = carritoRepository.findById(id).orElse(null);
+        if(carrito.getIdCarrito() != null && carrito.getIdCarrito()==id && cantidad !=0){
+
+            return carritoRepository.actualizarItemCarrito(cantidad,id);
+        }else{
+            return null;
+        }
+
+    }
+
+
 }
