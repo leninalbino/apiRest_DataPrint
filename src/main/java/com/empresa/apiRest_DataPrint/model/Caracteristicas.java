@@ -29,7 +29,7 @@ public class Caracteristicas implements Serializable {
     private String descriCaract;
     
     @Column(name = "cantidCaract")
-    private String cantidCaract;
+    private Integer cantidCaract;
     @Column(name = "precioCaract")
     private Double precioCaract;
     
