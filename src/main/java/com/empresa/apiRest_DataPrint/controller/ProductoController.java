@@ -1,12 +1,15 @@
 package com.empresa.apiRest_DataPrint.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +39,7 @@ public class ProductoController {
 	@GetMapping("/listProducts")
 	public ResponseEntity<List<Producto>>ListFindAllProduct(){
 		//List<Producto> p = productoSer.ListarProductos();
-		return new ResponseEntity<List<Producto>>(productoSer.ListarProductos(), HttpStatus.CREATED);
+		return new ResponseEntity<List<Producto>>(productoSer.ListarProductos(), HttpStatus.OK);
 		
 	}
 	
@@ -49,7 +52,20 @@ public class ProductoController {
 	           		Producto producto =productoSer.agregarProducto(imageProp, nombrePro, estadoPro, categoria_id);
 	        return ResponseEntity.status(HttpStatus.CREATED).body(producto);
 	    }
-	
-	
-	
+	 @DeleteMapping("/eliminarProducto/{id}")
+	 public ResponseEntity<?> elminarProducto(@PathVariable("id") long id){
+		 
+		 Map<String, Object> response = new HashMap<>();
+		 
+		 Producto p = productoSer.buscarProductoId(id);
+		 
+		 if(p !=null) {
+			 productoSer.eliminarProducto(id);
+			 response.put("Mensaje", "Producto eliminado correctamente");
+			 return ResponseEntity.ok(response);	 
+		 }else {
+			 response.put("Mensaje", "Producto no existe");
+			 return ResponseEntity.ok(response); 
+		 } 
+	 }	
 }
