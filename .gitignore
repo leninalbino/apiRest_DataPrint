@@ -21,6 +21,16 @@ bin
 src/main/resources/application.properties
 
 ### STS ###
+bin
+HELP.md
+target/
+.mvn
+.project
+.classpath	
+mvnw
+mvnw.cmd
+!**/src/main/**
+!**/src/test/**
 .apt_generated
 .classpath
 .factorypath
@@ -28,6 +38,10 @@ src/main/resources/application.properties
 .settings
 .springBeans
 .sts4-cache
+bin
+
+# others
+src/main/resources/application.properties
 
 ### IntelliJ IDEA ###
 .idea

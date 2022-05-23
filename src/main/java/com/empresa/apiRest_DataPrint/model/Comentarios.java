@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -24,7 +26,14 @@ public class Comentarios implements Serializable {
     private Long idcomentarios;
     @Column(name = "comentarios")
     private String comentarios;
-
+    
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
+    
+    @ManyToOne
+    @JoinColumn(name="usuario_id")
+    private Usuarios usuario;
 
     
 }

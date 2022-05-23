@@ -1,6 +1,10 @@
 package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+>>>>>>> main
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,8 +16,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+<<<<<<< HEAD
 
 import lombok.AllArgsConstructor;
+=======
+>>>>>>> main
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,6 +35,7 @@ public class Roles implements Serializable {
 	@Column(name = "idrol")
 	private Long idrol;
 
+<<<<<<< HEAD
 	@Column(name = "tipuser", nullable = false)
 	private String tipuser;
 
@@ -63,4 +71,12 @@ public class Roles implements Serializable {
 		this.tipuser = tipuser;
 	}
 
+=======
+    @OneToMany(mappedBy = "usuaRoles",cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @JsonIgnoreProperties("usuaRoles")
+    private List<Usuarios> usuarios = new ArrayList<>();
+
+    
+    
+>>>>>>> main
 }

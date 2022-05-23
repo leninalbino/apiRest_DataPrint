@@ -1,14 +1,21 @@
 package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 @Data
@@ -18,67 +25,29 @@ public class Producto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idProducto")
-    private Long idProducto;
+    @Column(name = "idProductoPro")
+    private Long idProductoPro;
     @Column(name = "imageProp")
     private String imageProp;
     @Column(name = "nombrePro")
     private String nombrePro;
-    @Column(name = "cantidPro")
-    private String cantidPro;
-    @Column(name = "precio")
-    private Double precio;
+    @Column(name = "estadoPro")
+    private boolean estadoPro;
 
-    public Producto(Long idProducto, String imageProp, String nombrePro, String cantidPro, Double precio) {
-        this.idProducto = idProducto;
-        this.imageProp = imageProp;
-        this.nombrePro = nombrePro;
-        this.cantidPro = cantidPro;
-        this.precio = precio;
-    }
+	//@JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="categoria_id")
+    private Categorias categoria;
 
-    public Producto() {
-        super();
-    }
+   	//@JsonIgnore
+    @OneToMany(mappedBy = "producto")
+	@JsonIgnoreProperties("producto")
+    private List<Caracteristicas> caracteristicas;
 
-    public Long getIdProducto() {
-        return idProducto;
-    }
 
-    public void setIdProducto(Long idProducto) {
-        this.idProducto = idProducto;
-    }
-
-    public String getImageProp() {
-        return imageProp;
-    }
-
-    public void setImageProp(String imageProp) {
-        this.imageProp = imageProp;
-    }
-
-    public String getNombrePro() {
-        return nombrePro;
-    }
-
-    public void setNombrePro(String nombrePro) {
-        this.nombrePro = nombrePro;
-    }
-
-    public String getCantidPro() {
-        return cantidPro;
-    }
-
-    public void setCantidPro(String cantidPro) {
-        this.cantidPro = cantidPro;
-    }
-
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
-
+	//public static long getSerialversionuid() {
+		//return serialVersionUID;
+	//}
+    
+    
 }
