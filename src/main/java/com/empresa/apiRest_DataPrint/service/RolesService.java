@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.empresa.apiRest_DataPrint.model.Roles;
 
+
+
 public interface RolesService {
 	List<Roles> listarRoles();
 
