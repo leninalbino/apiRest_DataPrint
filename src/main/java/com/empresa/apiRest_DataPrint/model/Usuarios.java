@@ -2,7 +2,7 @@ package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,94 +13,117 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "usuarios")
 public class Usuarios implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idusuarios")
-    private Long idusuarios;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idusuarios")
+	private Long idusuarios;
 
-    @Column(name = "usuario", nullable = true, length = 45)
-    private String usuario;
+	@Column(name = "correo", nullable = false)
+	private String correo;
 
-    @Column(name = "clave", nullable = true, length = 45)
-    private String clave;
-    @Column(name = "fecrea")
-    private LocalDate fecrea;
+	@Column(name = "clave", nullable = false)
+	private String clave;
 
-    @Column(name = "hocrea")
-    private LocalTime hocrea;
+	@Column(name = "nombre", nullable = false)
+	private String nombre;
 
-    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-    @JoinColumn(name = "usuaRoles")
-    private Roles usuaRoles;
+	@Column(name = "apellido", nullable = false)
+	private String apellido;
 
-    public Usuarios(Long idusuarios, String usuario, String clave, LocalDate fecrea, LocalTime hocrea,
-            Roles usuaRoles) {
-        this.idusuarios = idusuarios;
-        this.usuario = usuario;
-        this.clave = clave;
-        this.fecrea = fecrea;
-        this.hocrea = hocrea;
-        this.usuaRoles = usuaRoles;
-    }
+	@Column(name = "fecrea")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fecrea;
 
-    public Usuarios() {
-        super();
-    }
+	@ManyToOne
+	@JoinColumn(name = "idrol")
+	@JsonIgnoreProperties
+	private Roles roles;
 
-    public Long getIdusuarios() {
-        return idusuarios;
-    }
+	public Usuarios(Long idusuarios, String correo, String clave, String nombre, String apellido, Date fecrea,
+			Roles roles) {
+		super();
+		this.idusuarios = idusuarios;
+		this.correo = correo;
+		this.clave = clave;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fecrea = fecrea;
+		this.roles = roles;
+	}
 
-    public void setIdusuarios(Long idusuarios) {
-        this.idusuarios = idusuarios;
-    }
+	public Usuarios() {
+		super();
+	}
 
-    public String getUsuario() {
-        return usuario;
-    }
+	public Long getIdusuarios() {
+		return idusuarios;
+	}
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
+	public void setIdusuarios(Long idusuarios) {
+		this.idusuarios = idusuarios;
+	}
 
-    public String getClave() {
-        return clave;
-    }
+	public String getCorreo() {
+		return correo;
+	}
 
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 
-    public LocalDate getFecrea() {
-        return fecrea;
-    }
+	public String getClave() {
+		return clave;
+	}
 
-    public void setFecrea(LocalDate fecrea) {
-        this.fecrea = fecrea;
-    }
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
 
-    public LocalTime getHocrea() {
-        return hocrea;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public void setHocrea(LocalTime hocrea) {
-        this.hocrea = hocrea;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public Roles getUsuaRoles() {
-        return usuaRoles;
-    }
+	public String getApellido() {
+		return apellido;
+	}
 
-    public void setUsuaRoles(Roles usuaRoles) {
-        this.usuaRoles = usuaRoles;
-    }
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public Date getFecrea() {
+		return fecrea;
+	}
+
+	public void setFecrea(Date fecrea) {
+		this.fecrea = fecrea;
+	}
+
+	public Roles getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Roles roles) {
+		this.roles = roles;
+	}
 
 }

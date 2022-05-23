@@ -1,10 +1,8 @@
 package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,54 +11,56 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "roles")
-public class Roles  implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class Roles implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idrol")
-    private Long idrol;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idrol")
+	private Long idrol;
 
-    @Column(name = "tipuser")
-    private String tipuser; 
+	@Column(name = "tipuser", nullable = false)
+	private String tipuser;
 
-    @OneToMany(mappedBy = "usuaRoles",cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
-    private Set<Usuarios> usuarios= new HashSet<>();
+	/*
+	 * @OneToMany(mappedBy = "usuario")
+	 * 
+	 * @JsonIgnoreProperties("usuario") private List<Usuarios> usuarios;
+	 */
 
-    public Roles(Long idrol, String tipuser, Set<Usuarios> usuarios) {
-        this.idrol = idrol;
-        this.tipuser = tipuser;
-        this.usuarios = usuarios;
-    }
+	public Roles(Long idrol, String tipuser) {
+		super();
+		this.idrol = idrol;
+		this.tipuser = tipuser;
+	}
 
-    public Long getIdrol() {
-        return idrol;
-    }
+	public Roles() {
+		super();
+	}
 
-    public void setIdrol(Long idrol) {
-        this.idrol = idrol;
-    }
+	public Long getIdrol() {
+		return idrol;
+	}
 
-    public String getTipuser() {
-        return tipuser;
-    }
+	public void setIdrol(Long idrol) {
+		this.idrol = idrol;
+	}
 
-    public void setTipuser(String tipuser) {
-        this.tipuser = tipuser;
-    }
+	public String getTipuser() {
+		return tipuser;
+	}
 
-    public Set<Usuarios> getUsuarios() {
-        return usuarios;
-    }
+	public void setTipuser(String tipuser) {
+		this.tipuser = tipuser;
+	}
 
-    public void setUsuarios(Set<Usuarios> usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    
 }
