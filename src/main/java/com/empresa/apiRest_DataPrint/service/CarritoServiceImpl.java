@@ -6,6 +6,8 @@ import com.empresa.apiRest_DataPrint.model.Usuarios;
 import com.empresa.apiRest_DataPrint.repository.CaracteristicaRepository;
 import com.empresa.apiRest_DataPrint.repository.CarritoRepository;
 import com.empresa.apiRest_DataPrint.repository.UsuariosRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ public class CarritoServiceImpl implements  CarritoService{
     private CaracteristicaRepository caracteristicaRepository;
     @Autowired
     private UsuariosRepository usuariosRepository;
+
+    Logger logger= LoggerFactory.getLogger(CarritoServiceImpl.class);
     @Override
     public Carrito agregarCarrito(Integer cantidad,Long caracteristica, Long usuario) {
         Caracteristicas caracteristicas = caracteristicaRepository.findById(caracteristica).get();
@@ -46,20 +50,27 @@ public class CarritoServiceImpl implements  CarritoService{
     public Optional eliminarItemCarrito(Long id) {
         List<Carrito> carrito = carritoRepository.findAll();
         if(id != null){
-            carrito.stream().filter(item -> (item.getIdCarrito() == id)).findFirst();
+            carrito.stream().filter(item -> {
+                return (item.getIdCarrito() == id);
+            }).findFirst();
             carritoRepository.deleteById(id);
         }
         return null;
     }
 
     @Override
-    public Carrito actualizarItemCarrito(Long cantidad, Long id) {
+    public Carrito actualizarItemCarrito(Integer cantidad, Long id) {
         Carrito carrito = carritoRepository.findById(id).orElse(null);
-        if(carrito.getIdCarrito() != null && carrito.getIdCarrito()==id && cantidad !=0){
-
-            return carritoRepository.actualizarItemCarrito(cantidad,id);
+        //Usuarios usuarios=usuariosRepository.findById(carrito.getUsuario().getIdusuarios()).orElse(null);
+        //Caracteristicas caracteristicas = caracteristicaRepository.findById(carrito.getCaracteristica()
+                                                                    //.getIdCaracteristica()).orElse(null);
+        if(carrito.getCaracteristica().validar_cantidad(cantidad) ){
+            //carrito.setUsuario(usuarios);
+            //carrito.setCaracteristica(caracteristicas);
+            carrito.setCantidad(cantidad);
+            logger.info("ingreso"+ carrito.getCaracteristica().validar_cantidad(cantidad));
+            return carritoRepository.save(carrito);
         }else{
-        	
             return null;
         }
 
