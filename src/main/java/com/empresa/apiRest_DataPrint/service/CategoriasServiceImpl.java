@@ -64,8 +64,11 @@ public class CategoriasServiceImpl implements CategoriasService {
 	}
 
 	@Override
-	public Categorias buscarByNombre(String nombre) {
-		return categoriasRespository.findByNombre(nombre);
+	public Categorias  buscarByNombre(String nombre) {
+
+			return categoriasRespository.findByNombre(nombre);
+
+
 	}
 	
 

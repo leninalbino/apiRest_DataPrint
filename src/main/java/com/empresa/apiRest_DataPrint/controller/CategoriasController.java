@@ -1,5 +1,6 @@
 package com.empresa.apiRest_DataPrint.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,19 +49,19 @@ public class CategoriasController {
 	@RequestMapping(path = "/agregar")
 	public ResponseEntity<?> agregar(@RequestBody Categorias categoria){
 		Map<String, Object> response= new HashMap<String, Object>();
-		
-		Categorias cate = categoriaService.buscarByNombre(categoria.getNombreCate());
-		if(cate != null) {
+		Categorias cat ;
+		cat = categoriaService.buscarByNombre(categoria.getNombreCate());
+		if(cat != null) {
 			response.put("Mensaje", "Nombre categoria ya existe ..");
-			//return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
-			return  ResponseEntity.ok(response);
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
+			//return  ResponseEntity.ok(response);
 			
 		}else {
 			response.put("Mensaje", "Registrado correctamento");
 		categoriaService.agregarCategorias(categoria);
-		return  ResponseEntity.ok(response);
+
 		}
-		
+		return  ResponseEntity.ok(response);
 			
 	}
 	
