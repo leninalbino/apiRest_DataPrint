@@ -46,7 +46,7 @@ public class ClientesServiceImpl implements ClientesService {
 	}
 
 	@Override
-	public Clientes registrarCliente(String nombre, String apellido, String telefono, String direcc,
+	public Clientes registrarCliente(String nombre, String apellido, String telefono, Date fecrea, String direcc,
 			Long usuario) {
 		Usuarios usuarios= usuariosRepository.findById(usuario).orElse(null);
 		Clientes clientes= new Clientes(); 
