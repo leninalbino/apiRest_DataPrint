@@ -36,4 +36,8 @@ public class Caracteristicas implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)// carga peresosa
     @JoinColumn(name="producto_id")
     private Producto producto;
+
+    public boolean validar_cantidad(Integer cantidad){
+        return this.getCantidCaract()>0 && cantidad<=this.getCantidCaract();
+    }
 }

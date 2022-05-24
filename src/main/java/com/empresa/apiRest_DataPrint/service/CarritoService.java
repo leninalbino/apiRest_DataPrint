@@ -10,6 +10,6 @@ public interface CarritoService {
     public Carrito  agregarCarrito(Integer cantidad, Long caracteristica, Long usuario);
     public List<Carrito> listarCarrito(Long idUsuario, Long idCaracteristica);
     public Optional eliminarItemCarrito(Long id);
-    public Carrito actualizarItemCarrito(Long cantidad, Long id);
+    public Carrito actualizarItemCarrito(Integer cantidad, Long id);
 
 }

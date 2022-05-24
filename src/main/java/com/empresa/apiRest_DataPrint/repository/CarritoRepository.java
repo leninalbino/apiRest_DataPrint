@@ -14,7 +14,7 @@ public interface CarritoRepository extends JpaRepository <Carrito,Long> {
     @Query(" select c from Carrito c where c.usuario.id=?1 and c.caracteristica.id=?2")
     public Carrito encontrarItem(Long idUsuario, Long idCaracteristica);
 
-    @Query("update  Carrito set cantidad=?1 where idCarrito=?2")
-    public Carrito actualizarItemCarrito(Long cantidad, Long id);
+    //@Query("update  Carrito set cantidad=?1 where idCarrito=?2")
+   // public Carrito actualizarItemCarrito(Long cantidad, Long id);
 
 }

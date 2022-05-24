@@ -52,12 +52,18 @@ public class CarritoController {
         return ResponseEntity.ok(response);
     }
     @PutMapping("actualizarItemCarrito/{cantidad}/{idCarrito}")
-    public ResponseEntity<?>actualizarItemCarrito(@PathVariable("cantidad") long cantidad,
+    public ResponseEntity<?>actualizarItemCarrito(@PathVariable("cantidad") Integer cantidad,
                                                   @PathVariable("idCarrito") long idCarrito){
         Map <String,Object> response = new HashMap<>();
-        carritoService.actualizarItemCarrito(cantidad,idCarrito);
-        response.put("mensaje", "Actualizado Correctamente");
-        return ResponseEntity.ok(response);
+        var carrito=carritoService.actualizarItemCarrito(cantidad,idCarrito);
+        if (carrito != null){
+            response.put("mensaje", "Actualizado Correctamente");
+            return ResponseEntity.ok(response);
+        }else {
+            response.put("mensaje", "No se puede actualizar");
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
+        }
+
     }
 
 }

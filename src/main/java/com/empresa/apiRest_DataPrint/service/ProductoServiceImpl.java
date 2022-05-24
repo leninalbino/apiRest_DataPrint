@@ -52,9 +52,9 @@ public class ProductoServiceImpl implements ProductoService{
         //List<Producto> p= new ArrayList<Producto>();
         Producto p= productoRepo.findByNombre(nombrePro);
 		
-			 if(p.getNombrePro()== nombrePro && p.getNombrePro()==null) {
+			 if( p!=null) {
 				 //Producto pro=(p == null) ? p.getNombrePro() :p;
-				 return p;
+				 return null;
 			 }else {
 				 	producto.setImageProp(imageProp);
 			        producto.setNombrePro(nombrePro);
