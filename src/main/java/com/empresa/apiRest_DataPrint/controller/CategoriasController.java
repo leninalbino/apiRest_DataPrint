@@ -46,10 +46,22 @@ public class CategoriasController {
 	
 	@PostMapping
 	@RequestMapping(path = "/agregar")
-	public ResponseEntity<Void> agregar(@RequestBody Categorias categoria){
-		categoriaService.agregarCategorias(categoria);
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+	public ResponseEntity<?> agregar(@RequestBody Categorias categoria){
+		Map<String, Object> response= new HashMap<String, Object>();
 		
+		Categorias cate = categoriaService.buscarByNombre(categoria.getNombreCate());
+		if(cate != null) {
+			response.put("Mensaje", "Nombre categoria ya existe ..");
+			//return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
+			return  ResponseEntity.ok(response);
+			
+		}else {
+			response.put("Mensaje", "Registrado correctamento");
+		categoriaService.agregarCategorias(categoria);
+		return  ResponseEntity.ok(response);
+		}
+		
+			
 	}
 	
 	@PutMapping
