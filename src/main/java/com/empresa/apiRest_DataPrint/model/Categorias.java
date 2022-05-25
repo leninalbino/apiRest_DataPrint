@@ -25,6 +25,8 @@ public class Categorias implements Serializable {
     @Column(name = "nombreCate")
     private String nombreCate;
  
-
+ public boolean validarNombre(String nombre){
+     return this.getNombreCate() != null;
+ }
  
 }

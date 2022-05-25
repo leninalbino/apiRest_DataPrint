@@ -24,7 +24,7 @@ import com.empresa.apiRest_DataPrint.service.ClientesService;
 @RestController
 @RequestMapping("/rest/v1/cliente")
 public class ClientesController {
-	Logger logger = LoggerFactory.getLogger(ProductoController.class);
+	Logger logger = LoggerFactory.getLogger(ClientesController.class);
 	
 	@Autowired
 	private ClientesService clienteService;
@@ -46,10 +46,10 @@ public class ClientesController {
 	public ResponseEntity<?> registrarClientes(@RequestParam("nombre") String nombre,
 											   @RequestParam("apellido") String apellido,
 											   @RequestParam("telefono") String telefono,
-											   //@RequestParam("fecrea") Date fecrea,
+											   @RequestParam("fecrea") Date fecrea,
 											   @RequestParam("direcc") String direcc,
 											   @RequestParam("usuario_id") Long usuario_id){
-		Clientes clientes = clienteService.registrarCliente(nombre, apellido, telefono, direcc, usuario_id);
+		Clientes clientes = clienteService.registrarCliente(nombre, apellido, telefono,fecrea, direcc, usuario_id);
 		return ResponseEntity.status(HttpStatus.CREATED).body(clientes);
 		
 	}

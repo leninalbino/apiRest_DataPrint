@@ -17,4 +17,6 @@ public void agregarCategorias(Categorias categoria);
 	
 	public Categorias buscarCategoriasId(Long id);
 	
+	public Categorias buscarByNombre(String nombre);
+	
 }

@@ -18,11 +18,10 @@ public class CategoriasServiceImpl implements CategoriasService {
 
 	@Override
 	public void agregarCategorias(Categorias categoria) {
-		// TODO Auto-generated method stub
+			//Categorias c = new Categorias();
+			//c.setNombreCate(categoria.getNombreCate());
+			categoriasRespository.save(categoria);
 		
-		Categorias c = new Categorias();
-		c.setNombreCate(categoria.getNombreCate());
-		categoriasRespository.save(c);
 	}
 
 	@Override
@@ -62,6 +61,14 @@ public class CategoriasServiceImpl implements CategoriasService {
             categoriasRespository.deleteById(id);
 		}
 		return null;
+	}
+
+	@Override
+	public Categorias  buscarByNombre(String nombre) {
+
+			return categoriasRespository.findByNombre(nombre);
+
+
 	}
 	
 

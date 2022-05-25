@@ -15,7 +15,7 @@ public interface ClientesService  {
 	
 	void ActualizarCliente(Clientes cliente);
 	
-	public Clientes  registrarCliente(String nombre ,String apellido,String telefono ,  String direcc, Long usuario);
+	public Clientes  registrarCliente(String nombre ,String apellido,String telefono , Date fecrea,  String direcc, Long usuario);
 	
 	public Optional eliminarCliente(Long id);
 	
