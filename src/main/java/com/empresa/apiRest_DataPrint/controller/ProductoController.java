@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -31,10 +32,15 @@ public class ProductoController {
 	
 	@GetMapping("/p/{id}")
 	public ResponseEntity<Producto>buscarProductoId(@PathVariable("id") Long id){
-		Producto p = productoSer.buscarProductoId(id);
-		logger.info("Lista de Producto por Id"+p.getIdProductoPro());
-		return ResponseEntity.ok().body(p);
 		
+		Map<String, Object> response= new HashMap<>();
+		Producto p = productoSer.buscarProductoId(id);
+		if (p != null) {
+			return new ResponseEntity<Producto>(p, HttpStatus.OK);
+		}else {
+			response.put("Mensaje", "Producto no existe");
+			return new ResponseEntity<Producto>(HttpStatus.NOT_FOUND);
+		}
 	}
 	@GetMapping("/listProducts")
 	public ResponseEntity<List<Producto>>ListFindAllProduct(){
@@ -44,13 +50,21 @@ public class ProductoController {
 	}
 	
 	 @PostMapping("/agregarProducto")
-	    public ResponseEntity<?> agregarProducto(@RequestParam("imageProp") String imageProp,
-	                                             @RequestParam("nombrePro") String nombrePro,
-	                                             @RequestParam("estadoPro") Boolean estadoPro,
-	                                             @RequestParam("categoria_id") Long categoria_id){
-
-	           		Producto producto =productoSer.agregarProducto(imageProp, nombrePro, estadoPro, categoria_id);
-	        return ResponseEntity.status(HttpStatus.CREATED).body(producto);
+	    public ResponseEntity<?> agregarProducto(@RequestBody Producto producto){
+		 
+		 Map<String, Object> response= new HashMap<>();
+		 
+		 Producto p = productoSer.buscarByNombre(producto.getNombrePro());
+		 
+		 if(p != null) {
+			 response.put("Mensaje", "Ya existe producto");
+			 
+		 }else {
+			 Producto productos =productoSer.agregarProducto(producto);
+			 response.put("Mensaje", "Producto registrado correctamente");
+		 }
+	          		
+	        return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	    }
 	 @DeleteMapping("/eliminarProducto/{id}")
 	 public ResponseEntity<?> elminarProducto(@PathVariable("id") long id){
@@ -67,5 +81,25 @@ public class ProductoController {
 			 response.put("Mensaje", "Producto no existe");
 			 return ResponseEntity.ok(response); 
 		 } 
-	 }	
+	 }
+	 
+	 @PutMapping("/actualizarProducto")
+	 public ResponseEntity<?> actualizarProducto(@RequestBody Producto producto){
+		 Map<String, Object> response= new HashMap<>();
+		 
+		 Producto p = productoSer.buscarByNombre(producto.getNombrePro());
+		 Producto pr= productoSer.buscarProductoId(producto.getIdProductoPro());
+		 if(pr != null) {
+			 if(p ==null) {
+				 productoSer.ActualizarProducto(producto);
+				 response.put("Mensaje", "Actualizado correctamente");
+			 }else {
+				 response.put("Mensaje", "Error: El nombre del producto ya existe");
+			 }
+			 
+		 }else {
+			 response.put("Mensaje", "Producto no existe"); 
+		 } 
+		 return ResponseEntity.status(HttpStatus.CREATED).body(response); 
+	 }
 }

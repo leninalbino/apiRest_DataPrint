@@ -1,6 +1,6 @@
 package com.empresa.apiRest_DataPrint.controller;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.apiRest_DataPrint.model.Categorias;
+import com.empresa.apiRest_DataPrint.model.Producto;
 import com.empresa.apiRest_DataPrint.service.CategoriasService;
 
 @RestController
@@ -37,14 +38,16 @@ public class CategoriasController {
 	@GetMapping
 	@RequestMapping(path = "/listar/{id}")
 	public ResponseEntity<Categorias>buscarCategoriaId(@PathVariable("id") Long id){
-		Map<String, Object> response = new HashMap<>();
 		
+		Map<String, Object> response= new HashMap<>();
 		Categorias c = categoriaService.buscarCategoriasId(id);
-		logger.info("Lista de Categoria por Id"+c.getIdcategorias());
-		return ResponseEntity.ok().body(c);
-		
+		if (c != null) {
+			return new ResponseEntity<Categorias>(c, HttpStatus.OK);
+		}else {
+			response.put("Mensaje", "Categoria no existe");
+			return new ResponseEntity<Categorias>(HttpStatus.NOT_FOUND);
+		}
 	}
-	
 	@PostMapping
 	@RequestMapping(path = "/agregar")
 	public ResponseEntity<?> agregar(@RequestBody Categorias categoria){
@@ -55,30 +58,45 @@ public class CategoriasController {
 			response.put("Mensaje", "Nombre categoria ya existe ..");
 			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
 			//return  ResponseEntity.ok(response);
-			
 		}else {
 			response.put("Mensaje", "Registrado correctamento");
 		categoriaService.agregarCategorias(categoria);
-
 		}
-		return  ResponseEntity.ok(response);
-			
+		return  ResponseEntity.ok(response);	
 	}
-	
 	@PutMapping
 	@RequestMapping("actualizarCategoria")
-    public ResponseEntity<Void>actualizarCategoria(@RequestBody Categorias categoria){
-		Categorias p = categoriaService.buscarCategoriasId(categoria.getIdcategorias());
+    public ResponseEntity<?>actualizarCategoria(@RequestBody Categorias categoria){
+//		Categorias p = categoriaService.buscarCategoriasId(categoria.getIdcategorias());
+//		if (p != null) {
+//			categoriaService.editarCategorias(categoria);;
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		}else {
+//			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+//		}
 		
-		if (p != null) {
-			categoriaService.editarCategorias(categoria);;
-			return new ResponseEntity<Void>(HttpStatus.OK);
-			
-		}else {
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		}
+		
+		Map<String, Object> response= new HashMap<>();
+		 
+		 Categorias c = categoriaService.buscarByNombre(categoria.getNombreCate());
+		 Categorias cate= categoriaService.buscarCategoriasId(categoria.getIdcategorias());
+		 
+		
+		 if(cate != null) {
+			 if(c ==null) {
+				 categoriaService.editarCategorias(categoria);
+				 response.put("Mensaje", "Actualizado correctamente");
+			 }else {
+				 response.put("Mensaje", "Error: El nombre de la categoria ya existe");
+			 }
+			 
+		 }else {
+			 response.put("Mensaje", "Categoria no existe"); 
+		 } 
+		 return ResponseEntity.status(HttpStatus.CREATED).body(response); 
+		 
+	 
     }
-	
 	@DeleteMapping
 	@RequestMapping(path = "/eliminar/{id}")
 	public ResponseEntity<?> eliminarCategorias(@PathVariable("id") Long id){

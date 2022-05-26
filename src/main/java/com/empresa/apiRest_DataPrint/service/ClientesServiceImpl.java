@@ -32,37 +32,25 @@ public class ClientesServiceImpl implements ClientesService {
 	}
 
 	@Override
-	public void ActualizarCliente(Clientes cliente) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
-	@Override
 	public Optional eliminarCliente(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Clientes registrarCliente(String nombre, String apellido, String telefono, Date fecrea, String direcc,
-			Long usuario) {
-		Usuarios usuarios= usuariosRepository.findById(usuario).orElse(null);
-		Clientes clientes= new Clientes(); 
-		
-			//clientes = new Clientes();
-			
-			clientes.setNombre(nombre);
-			clientes.setApellido(apellido);
-			clientes.setTelefono(telefono);
-			//clientes.setFecrea(fecrea);
-			clientes.setDirecc(direcc);
-			clientes.setUsuario(usuarios);
-			
-		
-		clientesRepository.save(clientes);
-		return clientes;
+	public Clientes ActualizarCliente(Clientes cliente) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
+	public Clientes registrarCliente(Clientes cliente) {
+		Clientes clientes = clientesRepository.findById(cliente.getIdcliente()).orElse(null);
+		
+		
+		return clientesRepository.save(cliente);
+	}
+
+	
 
 }
