@@ -26,11 +26,10 @@ public class CategoriasServiceImpl implements CategoriasService {
 
 	@Override
 	public void editarCategorias(Categorias categoria) {
-		// TODO Auto-generated method stub
 		Categorias c = new Categorias();
 		c.setNombreCate(categoria.getNombreCate());
 		c.setIdcategorias(categoria.getIdcategorias());
-		categoriasRespository.saveAndFlush(c);
+		categoriasRespository.saveAndFlush(categoria);
 		
 	}
 

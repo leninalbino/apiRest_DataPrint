@@ -7,7 +7,7 @@ import com.empresa.apiRest_DataPrint.model.Categorias;
 
 public interface CategoriasService {
 	
-public void agregarCategorias(Categorias categoria);
+	public void agregarCategorias(Categorias categoria);
 	
 	public void editarCategorias(Categorias categoria);
 	

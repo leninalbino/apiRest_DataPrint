@@ -33,9 +33,9 @@ public class ProductoServiceImpl implements ProductoService{
 	}
 
 	@Override
-	public void ActualizarProducto(Producto producto) {
-		// TODO Auto-generated method stub
-		productoRepo.save(producto);
+	public Producto ActualizarProducto(Producto producto) {
+		 Categorias categorias = categoriaRepository.findById(producto.getCategoria().getIdcategorias()).orElse(null);
+		 return productoRepo.saveAndFlush(producto);
 	}
 
 	@Override
@@ -45,26 +45,27 @@ public class ProductoServiceImpl implements ProductoService{
 	}
 
 	@Override
-	public Producto agregarProducto(String imageProp, String nombrePro,Boolean estadoPro, Long categoria) {
-        Categorias categorias = categoriaRepository.findById(categoria).orElse(null);
-        Producto producto = new Producto();
+	public Producto agregarProducto(Producto producto) {
+		
+        Categorias categorias = categoriaRepository.findById(producto.getCategoria().getIdcategorias()).orElse(null);
+        //Producto product = new Producto();
         
         //List<Producto> p= new ArrayList<Producto>();
-        Producto p= productoRepo.findByNombre(nombrePro);
+        //Producto p= productoRepo.findByNombre(nombrePro);
 		
-			 if( p!=null) {
+			// if( p!=null) {
 				 //Producto pro=(p == null) ? p.getNombrePro() :p;
-				 return null;
-			 }else {
-				 	producto.setImageProp(imageProp);
-			        producto.setNombrePro(nombrePro);
-			        producto.setEstadoPro(estadoPro);
-			        producto.setCategoria(categorias);
+				// return null;
+			 //}else {
+				 	//producto.setImageProp(imageProp);
+			        //producto.setNombrePro(nombrePro);
+			        //producto.setEstadoPro(estadoPro);
+			        //producto.setCategoria(categorias);
 			        
-			 }
+			 //}
 		 
-			 productoRepo.save(producto);
-        return producto;
+			return productoRepo.save(producto);
+   //     return producto;
 	}
 
 	@Override
@@ -75,5 +76,11 @@ public class ProductoServiceImpl implements ProductoService{
             productoRepo.deleteById(id);
 		}
 		return null;
+	}
+
+	@Override
+	public Producto buscarByNombre(String nombre) {
+		// TODO Auto-generated method stub
+		return productoRepo.findByNombre(nombre);
 	}
 }

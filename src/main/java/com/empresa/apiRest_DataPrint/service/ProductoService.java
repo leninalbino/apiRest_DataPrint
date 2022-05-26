@@ -3,6 +3,7 @@ package com.empresa.apiRest_DataPrint.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.empresa.apiRest_DataPrint.model.Categorias;
 import com.empresa.apiRest_DataPrint.model.Producto;
 
 public interface ProductoService {
@@ -11,10 +12,12 @@ public interface ProductoService {
 	
 	public Producto buscarProductoId(Long id);
 	
-	void ActualizarProducto(Producto producto);
+	public Producto ActualizarProducto(Producto producto);
 	
-	public Producto  agregarProducto(String imageProp,String nombrePro,Boolean estadoPro ,Long categoria);
+	public Producto  agregarProducto(Producto producto);
 	
 	public Optional eliminarProducto(Long id);
+	
+	public Producto buscarByNombre(String nombre);
 
 }

@@ -1,7 +1,7 @@
 package com.empresa.apiRest_DataPrint.service;
 
 
-import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +13,9 @@ public interface ClientesService  {
 	
 	public Clientes buscarClienteId(Long id);
 	
-	void ActualizarCliente(Clientes cliente);
+	public Clientes ActualizarCliente(Clientes cliente);
 	
-	public Clientes  registrarCliente(String nombre ,String apellido,String telefono , Date fecrea,  String direcc, Long usuario);
+	public Clientes  registrarCliente(Clientes cliente);
 	
 	public Optional eliminarCliente(Long id);
 	

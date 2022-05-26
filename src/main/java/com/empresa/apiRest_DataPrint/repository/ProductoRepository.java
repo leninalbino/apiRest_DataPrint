@@ -16,7 +16,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Long>{
 	@Query("select p from Producto p  where p.idProductoPro=?1")
 	public Producto findByIdProductoPro(Long id);
 	
-	 @Query("select p.nombrePro from Producto p where p.nombrePro=?1")
-	 public Producto findByNombre(String nombre);
-	 
+	 @Query("select p from Producto p where p.nombrePro like %?1")
+	 public Producto findByNombre(String nombre); 
 }

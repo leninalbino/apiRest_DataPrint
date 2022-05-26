@@ -41,18 +41,18 @@ public class ClientesController {
 		return ResponseEntity.ok().body(c);
 		
 	}
-	@PostMapping
-	@RequestMapping("/registrarClientes")
-	public ResponseEntity<?> registrarClientes(@RequestParam("nombre") String nombre,
-											   @RequestParam("apellido") String apellido,
-											   @RequestParam("telefono") String telefono,
-											   @RequestParam("fecrea") Date fecrea,
-											   @RequestParam("direcc") String direcc,
-											   @RequestParam("usuario_id") Long usuario_id){
-		Clientes clientes = clienteService.registrarCliente(nombre, apellido, telefono,fecrea, direcc, usuario_id);
-		return ResponseEntity.status(HttpStatus.CREATED).body(clientes);
+//	@PostMapping
+//	@RequestMapping("/registrarClientes")
+//	public ResponseEntity<?> registrarClientes(@RequestParam("nombre") String nombre,
+//											   @RequestParam("apellido") String apellido,
+//											   @RequestParam("telefono") String telefono,
+//											   @RequestParam("fecrea") Date fecrea,
+//											   @RequestParam("direcc") String direcc,
+//											   @RequestParam("usuario_id") Long usuario_id){
+//		Clientes clientes = clienteService.registrarCliente(nombre, apellido, telefono,fecrea, direcc, usuario_id);
+//		return ResponseEntity.status(HttpStatus.CREATED).body(clientes);
 		
-	}
+	//}
 	
 	@DeleteMapping
 	@RequestMapping("/eliminarCliente/{id}")
