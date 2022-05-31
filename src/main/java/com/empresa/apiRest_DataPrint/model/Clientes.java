@@ -29,8 +29,11 @@ public class Clientes implements Serializable {
     private String nombre;
     @Column(name = "apellido", nullable = true, length = 45)
     private String apellido;
+    @Column(name = "dni", nullable = true, length = 8)
+    private String dni;
     @Column(name = "telefono", nullable = true, length = 45)
     private String telefono;
+    
     
     @Column(name = "fecrea")
     @Temporal(TemporalType.TIMESTAMP)

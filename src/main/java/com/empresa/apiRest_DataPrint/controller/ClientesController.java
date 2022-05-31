@@ -1,6 +1,6 @@
 package com.empresa.apiRest_DataPrint.controller;
 
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.apiRest_DataPrint.model.Clientes;
@@ -41,18 +41,23 @@ public class ClientesController {
 		return ResponseEntity.ok().body(c);
 		
 	}
-//	@PostMapping
-//	@RequestMapping("/registrarClientes")
-//	public ResponseEntity<?> registrarClientes(@RequestParam("nombre") String nombre,
-//											   @RequestParam("apellido") String apellido,
-//											   @RequestParam("telefono") String telefono,
-//											   @RequestParam("fecrea") Date fecrea,
-//											   @RequestParam("direcc") String direcc,
-//											   @RequestParam("usuario_id") Long usuario_id){
-//		Clientes clientes = clienteService.registrarCliente(nombre, apellido, telefono,fecrea, direcc, usuario_id);
-//		return ResponseEntity.status(HttpStatus.CREATED).body(clientes);
+	@PostMapping
+	@RequestMapping("/registrarClientes")
+	public ResponseEntity<?> registrarClientes(@RequestBody Clientes cliente){
+		Map<String, Object> response = new HashMap<>();
+		Clientes cl = clienteService.buscarByDni(cliente.getDni());
 		
-	//}
+		if(cl !=null) {
+			response.put("Mensaje", "Ya existe cliente con este DNI...");
+		}else {
+			Clientes clientes= clienteService.registrarCliente(cliente);
+			response.put("String", "Cliente registrado correctamente ...");
+		}
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+		
+	}
 	
 	@DeleteMapping
 	@RequestMapping("/eliminarCliente/{id}")

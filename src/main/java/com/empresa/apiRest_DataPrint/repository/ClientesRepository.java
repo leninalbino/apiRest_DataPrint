@@ -14,7 +14,7 @@ public interface ClientesRepository extends JpaRepository<Clientes, Long> {
 	@Query(" select c from Clientes c where c.usuario.id=?1")
     public Clientes encontrarItem(Long idUsuario);
 	
-	 @Query("select c from Clientes c where c.nombre like %?1")
-	 public Clientes findByNombre(String nombre); 
+	 @Query("select c from Clientes c where c.dni like %?1")
+	 public Clientes findByDni(String dni); 
 
 }

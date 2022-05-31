@@ -19,5 +19,7 @@ public interface ClientesService  {
 	
 	public Optional eliminarCliente(Long id);
 	
+	public Clientes buscarByDni(String dni);
+	
 
 }

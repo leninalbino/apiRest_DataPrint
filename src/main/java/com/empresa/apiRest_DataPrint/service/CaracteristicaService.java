@@ -15,9 +15,13 @@ public interface CaracteristicaService {
 	
 	public Caracteristicas buscarCaracteristicaId(Long id);
 	
-	public Caracteristicas  registrarCaracterizticas(String descriCaract ,Integer cantidCaract,Double precioCaract, Long producto);
+	public Caracteristicas  registrarCaracterizticas(Caracteristicas caracterizticas);
+	
+	public Caracteristicas actualizarCaracterizticas(Caracteristicas caracterizticas);
 	
 	public Optional eliminarCaracterizticas(Long id);
+	
+	public Caracteristicas buscarByNombre(String nombre);
 	
 	
 }
