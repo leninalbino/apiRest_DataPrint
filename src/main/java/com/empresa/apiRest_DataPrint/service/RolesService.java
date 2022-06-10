@@ -12,4 +12,7 @@ public interface RolesService {
 	Roles registrarRoles(Roles roles);
 
 	Roles editarRoles(Roles roles);
+
+
+	Roles findByRol(String correo);
 }

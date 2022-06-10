@@ -33,12 +33,9 @@ public class Clientes implements Serializable {
     private String dni;
     @Column(name = "telefono", nullable = true, length = 45)
     private String telefono;
-    
-    
     @Column(name = "fecrea")
     @Temporal(TemporalType.TIMESTAMP)
     private Date  fecrea;
-    
     @Column(name="direcc")
     private String direcc;
     
