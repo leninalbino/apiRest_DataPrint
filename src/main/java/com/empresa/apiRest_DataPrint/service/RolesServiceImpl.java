@@ -26,4 +26,10 @@ public class RolesServiceImpl implements RolesService {
 		return repository.save(roles);
 	}
 
+	@Override
+	public Roles findByRol(String rol) {
+		Roles roles = repository.findByRol(rol);
+		return roles;
+	}
+
 }
