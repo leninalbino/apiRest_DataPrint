@@ -17,7 +17,7 @@ import com.empresa.apiRest_DataPrint.model.Roles;
 import com.empresa.apiRest_DataPrint.service.RolesService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins ={"http://localhost:4200","http://localhost:8086"} )
 @RequestMapping("/rest/v1/roles")
 public class RolesController {
 

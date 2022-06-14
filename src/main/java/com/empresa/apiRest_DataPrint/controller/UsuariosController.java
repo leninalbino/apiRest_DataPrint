@@ -33,7 +33,7 @@ import com.empresa.apiRest_DataPrint.model.Usuarios;
 import com.empresa.apiRest_DataPrint.service.UsuariosService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins ={"http://localhost:4200","http://localhost:8086"} )
 @RequestMapping("/rest/v1/usuarios")
 public class UsuariosController {
 
