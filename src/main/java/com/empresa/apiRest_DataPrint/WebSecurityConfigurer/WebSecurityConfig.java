@@ -47,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/rest/v1/usuarios/crearToken").permitAll()
+                .antMatchers("/rest/v1/carrito/agregarCarrito/**").hasAnyRole("CLIENTE")
                 .anyRequest()
                 .authenticated()
                 .and()
