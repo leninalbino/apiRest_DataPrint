@@ -5,7 +5,6 @@ import com.empresa.apiRest_DataPrint.model.Producto;
 import com.empresa.apiRest_DataPrint.repository.CaracteristicaRepository;
 import com.empresa.apiRest_DataPrint.repository.ProductoRepository;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,41 +24,41 @@ public class CaracteristicaServiceImpl implements CaracteristicaService {
 	public List<Caracteristicas> ListarCaracterizticas() {
 		return caracteristicaRepository.findAll();
 	}
-
-
 	
-
 	@Override
 	public Optional eliminarCaracterizticas(Long id) {
-		// TODO Auto-generated method stub
+		List<Caracteristicas> caracterizticas = caracteristicaRepository.findAll();
+		if(id !=null) {
+			caracterizticas.stream().filter(item -> (item.getIdCaracteristica() == id)).findFirst();
+            caracteristicaRepository.deleteById(id);
+		}
 		return null;
 	}
-
-
-
-
+	
 	@Override
 	public Caracteristicas buscarCaracteristicaId(Long id) {
 		return caracteristicaRepository.findByIdCaracterizticas(id);
 	}
-
-
-
-
+	
 	@Override
-	public Caracteristicas registrarCaracterizticas(String descriCaract, Integer cantidCaract, Double precioCaract,
-			Long producto) {
-		Producto productos = productoRepository.findById(producto).orElse(null);
-		Caracteristicas caracterizticas= new Caracteristicas();
+	public Caracteristicas registrarCaracterizticas(Caracteristicas caracterizticas) {
+		Producto productos= productoRepository.findById(caracterizticas.getProducto().getIdProductoPro()).orElse(null);
+		return caracteristicaRepository.save(caracterizticas);
 		
-		caracterizticas.setDescriCaract(descriCaract);
-		caracterizticas.setCantidCaract(cantidCaract);
-		caracterizticas.setPrecioCaract(precioCaract);
-		caracterizticas.setProducto(productos);
-		
-		caracteristicaRepository.save(caracterizticas);
-		return caracterizticas;
 	}
+	@Override
+	public Caracteristicas actualizarCaracterizticas(Caracteristicas caracterizticas) {
+		Producto productos = productoRepository.findById(caracterizticas.getProducto().getIdProductoPro()).orElse(null);
+		return caracteristicaRepository.saveAndFlush(caracterizticas);
+	}
+	
+	@Override
+	public Caracteristicas buscarByNombre(String nombre) {
+		return caracteristicaRepository.findByNombre(nombre);
+	}
+
+
+
 
 	
 

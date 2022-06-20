@@ -39,91 +39,15 @@ public class Usuarios implements Serializable {
 	@Column(name = "clave", nullable = false)
 	private String clave;
 
-	@Column(name = "nombre", nullable = false)
-	private String nombre;
-
-	@Column(name = "apellido", nullable = false)
-	private String apellido;
-
 	@Column(name = "fecrea")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecrea;
 
-	@ManyToOne
+	// en la relacion de many to one va el @JoinColumn y colocamos
+	// un nombre como referencia
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinColumn(name = "idrol")
-	@JsonIgnoreProperties
 	private Roles roles;
 
-	public Usuarios(Long idusuarios, String correo, String clave, String nombre, String apellido, Date fecrea,
-			Roles roles) {
-		super();
-		this.idusuarios = idusuarios;
-		this.correo = correo;
-		this.clave = clave;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.fecrea = fecrea;
-		this.roles = roles;
-	}
-
-	public Usuarios() {
-		super();
-	}
-
-	public Long getIdusuarios() {
-		return idusuarios;
-	}
-
-	public void setIdusuarios(Long idusuarios) {
-		this.idusuarios = idusuarios;
-	}
-
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
-	public String getClave() {
-		return clave;
-	}
-
-	public void setClave(String clave) {
-		this.clave = clave;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public Date getFecrea() {
-		return fecrea;
-	}
-
-	public void setFecrea(Date fecrea) {
-		this.fecrea = fecrea;
-	}
-
-	public Roles getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Roles roles) {
-		this.roles = roles;
-	}
 
 }

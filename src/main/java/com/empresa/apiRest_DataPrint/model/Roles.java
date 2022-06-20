@@ -1,15 +1,10 @@
 package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -28,39 +23,14 @@ public class Roles implements Serializable {
 	@Column(name = "idrol")
 	private Long idrol;
 
-	@Column(name = "tipuser", nullable = false)
-	private String tipuser;
+	@Column(name = "rol", nullable = false)
+	private String rol;
 
-	/*
-	 * @OneToMany(mappedBy = "usuario")
-	 * 
-	 * @JsonIgnoreProperties("usuario") private List<Usuarios> usuarios;
-	 */
 
-	public Roles(Long idrol, String tipuser) {
-		super();
-		this.idrol = idrol;
-		this.tipuser = tipuser;
-	}
+	@OneToMany(mappedBy = "roles",cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@JsonIgnoreProperties("roles")
+	private List<Usuarios> usuarios = new ArrayList<>();
 
-	public Roles() {
-		super();
-	}
 
-	public Long getIdrol() {
-		return idrol;
-	}
-
-	public void setIdrol(Long idrol) {
-		this.idrol = idrol;
-	}
-
-	public String getTipuser() {
-		return tipuser;
-	}
-
-	public void setTipuser(String tipuser) {
-		this.tipuser = tipuser;
-	}
 
 }

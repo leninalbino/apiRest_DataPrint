@@ -44,13 +44,11 @@ public class ProductoController {
 	}
 	@GetMapping("/listProducts")
 	public ResponseEntity<List<Producto>>ListFindAllProduct(){
-		//List<Producto> p = productoSer.ListarProductos();
 		return new ResponseEntity<List<Producto>>(productoSer.ListarProductos(), HttpStatus.OK);
 		
 	}
-	
-	 @PostMapping("/agregarProducto")
-	    public ResponseEntity<?> agregarProducto(@RequestBody Producto producto){
+	@PostMapping("/agregarProducto")
+	public ResponseEntity<?> agregarProducto(@RequestBody Producto producto){
 		 
 		 Map<String, Object> response= new HashMap<>();
 		 

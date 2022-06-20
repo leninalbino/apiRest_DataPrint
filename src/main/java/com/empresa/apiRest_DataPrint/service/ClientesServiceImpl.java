@@ -1,6 +1,6 @@
 package com.empresa.apiRest_DataPrint.service;
 
-import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -33,23 +33,32 @@ public class ClientesServiceImpl implements ClientesService {
 
 	@Override
 	public Optional eliminarCliente(Long id) {
-		// TODO Auto-generated method stub
+		List<Clientes> clientes = clientesRepository.findAll();
+		if( id !=null) {
+			clientes.stream().filter(item -> (item.getIdcliente() == id)).findFirst();
+			clientesRepository.deleteById(id);
+		}
 		return null;
 	}
 
 	@Override
 	public Clientes ActualizarCliente(Clientes cliente) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuarios usuarios = usuariosRepository.findById(cliente.getUsuario().getIdusuarios()).orElse(null);
+		return clientesRepository.saveAndFlush(cliente);
 	}
 
 	@Override
 	public Clientes registrarCliente(Clientes cliente) {
-		Clientes clientes = clientesRepository.findById(cliente.getIdcliente()).orElse(null);
-		
-		
+		Usuarios usuarios = usuariosRepository.findById(cliente.getUsuario().getIdusuarios()).orElse(null);
 		return clientesRepository.save(cliente);
 	}
+
+	@Override
+	public Clientes buscarByDni(String dni) {
+		return clientesRepository.findByDni(dni);
+	}
+
+	
 
 	
 

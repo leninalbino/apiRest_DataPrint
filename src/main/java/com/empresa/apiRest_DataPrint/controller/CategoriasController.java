@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.apiRest_DataPrint.model.Categorias;
-import com.empresa.apiRest_DataPrint.model.Producto;
 import com.empresa.apiRest_DataPrint.service.CategoriasService;
 
 @RestController
@@ -65,7 +64,7 @@ public class CategoriasController {
 		return  ResponseEntity.ok(response);	
 	}
 	@PutMapping
-	@RequestMapping("actualizarCategoria")
+	@RequestMapping("/actualizarCategoria")
     public ResponseEntity<?>actualizarCategoria(@RequestBody Categorias categoria){
 //		Categorias p = categoriaService.buscarCategoriasId(categoria.getIdcategorias());
 //		if (p != null) {
