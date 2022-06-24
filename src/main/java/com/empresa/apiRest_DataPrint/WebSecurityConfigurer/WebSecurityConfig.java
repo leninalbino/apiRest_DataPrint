@@ -15,6 +15,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 @Configuration
@@ -44,9 +47,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                // .and()
                // .csrf().disable();// desactivar protocolo de validacion de a nivel de explorador
 
-
+        http.cors();
         http.authorizeRequests()
                 .antMatchers("/rest/v1/usuarios/crearToken").permitAll()
+                .antMatchers("/rest/v1/carrito/agregarCarrito/**").hasAnyRole("CLIENTE")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -72,5 +76,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new
+                UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
     }
 }
