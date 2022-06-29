@@ -1,8 +1,14 @@
 package com.empresa.apiRest_DataPrint.controller;
 
-import java.net.URI;
 import java.util.List;
 
+import com.empresa.apiRest_DataPrint.DTO.UsuarioRequestDTO;
+import com.empresa.apiRest_DataPrint.DTO.UsuarioResponseDTO;
+import com.empresa.apiRest_DataPrint.WebSecurityConfigurer.JwtUtil;
+import com.empresa.apiRest_DataPrint.WebSecurityConfigurer.UsuarioDetailService;
+import com.empresa.apiRest_DataPrint.model.AuthToken;
+import com.empresa.apiRest_DataPrint.model.LoginUsuario;
+import com.empresa.apiRest_DataPrint.model.UsuariosDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +22,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 import com.empresa.apiRest_DataPrint.model.Usuarios;
 import com.empresa.apiRest_DataPrint.service.UsuariosService;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/rest/v1/usuarios")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuariosController {
+
 
 	@Autowired
 	private UsuariosService service;
@@ -56,11 +71,19 @@ public class UsuariosController {
 		return ResponseEntity.ok(obj);
 
 	}
-	// buscar nombre
-	@GetMapping("/listarNombre/{nombre}")
-	public ResponseEntity<List<Usuarios>> findByNombre(@PathVariable("nombre") String nombre) {
-		List<Usuarios> obj = service.findByNombre(nombre);
-		return ResponseEntity.ok(obj);
+	//***********************************************************************************************************
 
+	@Autowired
+	private JwtUtil util;
+	@Autowired
+	private UsuarioDetailService serviceUser;
+
+	@PostMapping("/crearToken")
+	public ResponseEntity<?> crearToken(@RequestBody UsuarioRequestDTO dto){
+
+		UserDetails userDetails = serviceUser.loadUserByUsername(dto.getCorreo());
+		return ResponseEntity.ok(new UsuarioResponseDTO(util.generateToken(userDetails.getUsername())));
 	}
+
+
 }

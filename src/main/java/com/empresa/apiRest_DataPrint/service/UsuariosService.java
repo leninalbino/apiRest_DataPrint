@@ -3,6 +3,9 @@ package com.empresa.apiRest_DataPrint.service;
 import java.util.List;
 
 import com.empresa.apiRest_DataPrint.model.Usuarios;
+import com.empresa.apiRest_DataPrint.model.UsuariosDto;
+import org.springframework.stereotype.Service;
+
 
 public interface UsuariosService {
 
@@ -14,6 +17,6 @@ public interface UsuariosService {
 
 	List<Usuarios> findByCorreo(String correo);
 
-	List<Usuarios> findByNombre(String nombre);
+	//*******************************************************************
 
 }

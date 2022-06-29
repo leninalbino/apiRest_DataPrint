@@ -12,9 +12,11 @@ import com.empresa.apiRest_DataPrint.model.Usuarios;
 
 public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
 	@Query("select u from Usuarios u where u.correo like %?1%")
-	List<Usuarios> findByCorreo(String correo);
+	List<Usuarios> findAllByCorreo(String correo);
 
-	@Query("select u from Usuarios u where u.nombre like %?1%")
-	List<Usuarios> findByNombre(String nombre);
-
+	//@Query("select u from Usuarios u where u.nombre like %?1%")
+	//List<Usuarios> findByNombre(String nombre);
+	Usuarios findByCorreo(String correo);
+	//findByDistinctCorreo
+	//findDistinctByCorreo
 }
