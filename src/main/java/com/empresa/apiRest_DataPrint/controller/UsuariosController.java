@@ -25,8 +25,8 @@ import com.empresa.apiRest_DataPrint.model.Usuarios;
 import com.empresa.apiRest_DataPrint.service.UsuariosService;
 
 @RestController
-//@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/rest/v1/usuarios")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuariosController {
 
 

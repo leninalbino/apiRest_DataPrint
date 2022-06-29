@@ -43,11 +43,12 @@ public class CarritoController {
                 totalCantidad += (item.getCantidad()+cantidad);
            }
            if(totalCantidad > caracteristicas.getCantidCaract()){
-                return null;
-           }else{
-               Carrito carrito =carritoService.agregarCarrito(cantidad,caracteristica_id,usuarios.getIdusuarios());
-               return ResponseEntity.status(HttpStatus.CREATED).body(carrito);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(this.message("La cantidad "+
+                        cantidad + "Es superior a la Cantidad del Stock "+ caracteristicas.getCantidCaract()));
            }
+           Carrito carrito =carritoService.agregarCarrito(cantidad,caracteristica_id,usuarios.getIdusuarios());
+           return ResponseEntity.status(HttpStatus.CREATED).body(carrito);
+
 
     }
     @DeleteMapping("/eliminarItemCarrito/{id}")
@@ -65,11 +66,14 @@ public class CarritoController {
         if (carrito != null){
             response.put("mensaje", "Actualizado Correctamente");
             return ResponseEntity.ok(response);
-        }else {
-            response.put("mensaje", "No se puede actualizar");
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
         }
-
+        response.put("mensaje", "No se puede actualizar");
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
+    }
+    public Map<String,Object> message(String message){
+        Map <String,Object> response = new HashMap<>();
+        response.put("message", message);
+        return response;
     }
 
 }

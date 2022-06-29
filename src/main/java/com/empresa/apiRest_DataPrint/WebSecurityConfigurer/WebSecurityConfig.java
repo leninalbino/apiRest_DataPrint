@@ -36,6 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //auth.inMemoryAuthentication().withUser("albino").password(encriptado().encode("123456")).roles("ALUMNO");
         auth.userDetailsService(usuarioDetailService).passwordEncoder(encriptado());
     }
+    public static final String privilegesClients []={
+            "/rest/v1/carrito/agregarCarrito/**",
+            "/",// catalogo producto
+            "/stripe/**"
+    };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -47,10 +52,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                // .and()
                // .csrf().disable();// desactivar protocolo de validacion de a nivel de explorador
 
-        http.cors();
+        //http.cors().disable();
+       // http.anonymous().disable();
         http.authorizeRequests()
                 .antMatchers("/rest/v1/usuarios/crearToken").permitAll()
-                .antMatchers("/rest/v1/carrito/agregarCarrito/**").hasAnyRole("CLIENTE")
+                .antMatchers(privilegesClients).hasRole("CLIENTE")
+                .antMatchers("/rest/v1/producto/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
