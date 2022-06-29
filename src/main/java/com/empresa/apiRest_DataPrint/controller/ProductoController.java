@@ -61,7 +61,6 @@ public class ProductoController {
 			 Producto productos =productoSer.agregarProducto(producto);
 			 response.put("Mensaje", "Producto registrado correctamente");
 		 }
-	          		
 	        return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	    }
 	 @DeleteMapping("/eliminarProducto/{id}")
@@ -100,4 +99,5 @@ public class ProductoController {
 		 } 
 		 return ResponseEntity.status(HttpStatus.CREATED).body(response); 
 	 }
+
 }
