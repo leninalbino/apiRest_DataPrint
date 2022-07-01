@@ -1,6 +1,8 @@
 package com.empresa.apiRest_DataPrint.controller;
 
 
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,10 +48,13 @@ public class ClientesController {
 	public ResponseEntity<?> registrarClientes(@RequestBody Clientes cliente){
 		Map<String, Object> response = new HashMap<>();
 		Clientes cl = clienteService.buscarByDni(cliente.getDni());
+		Clientes client= new Clientes();
+		Date fechaActual= new Date();
 		
 		if(cl !=null) {
 			response.put("Mensaje", "Ya existe cliente con este DNI...");
 		}else {
+			cliente.setFecrea(fechaActual);
 			Clientes clientes= clienteService.registrarCliente(cliente);
 			response.put("String", "Cliente registrado correctamente ...");
 		}

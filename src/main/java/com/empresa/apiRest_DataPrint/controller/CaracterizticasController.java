@@ -60,8 +60,13 @@ public class CaracterizticasController {
 		if(c != null) {
 			response.put("Mensaje", "Ya existe caracteriztica");
 		}else {
-			Caracteristicas caracteriztica= caracterizticasService.registrarCaracterizticas(caracterizticas);
-			response.put("Mensaje", "Caracteriztica registrado correctamente");
+			if(caracterizticas.validar_cantidad(caracterizticas.getCantidCaract())) {
+				Caracteristicas caracteriztica= caracterizticasService.registrarCaracterizticas(caracterizticas);
+				response.put("Mensaje", "Caracteriztica registrado correctamente");
+			}else {
+				response.put("Mensaje", "Cantidad debe ser mayor a 0");
+			}
+			
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
