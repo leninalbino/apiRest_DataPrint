@@ -43,6 +43,7 @@ public class UsuariosController {
 	@Autowired
 	private UsuariosService service;
 
+
 	@GetMapping("/listarUsuarios")
 	public ResponseEntity<List<Usuarios>> listarUsuarios() {
 		List<Usuarios> obj = service.listarUsuarios();
@@ -52,8 +53,6 @@ public class UsuariosController {
 	@PostMapping("/regisrarUsuario")
 	public ResponseEntity<Usuarios> registrarUsuarios(@RequestBody Usuarios usuarios) {
 		Usuarios obj = service.registrarUsuarios(usuarios);
-		// URI uri =
-		// ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdusuarios()).toUri();
 		return new ResponseEntity<Usuarios>(obj, HttpStatus.OK);
 		// return ResponseEntity.created(uri).build();
 	}
@@ -78,10 +77,15 @@ public class UsuariosController {
 	@Autowired
 	private UsuarioDetailService serviceUser;
 
+	@Autowired
+	private AuthenticationManager authenticationManager;
 	@PostMapping("/crearToken")
 	public ResponseEntity<?> crearToken(@RequestBody UsuarioRequestDTO dto){
 
 		UserDetails userDetails = serviceUser.loadUserByUsername(dto.getCorreo());
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(dto.getCorreo(), dto.getClave()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return ResponseEntity.ok(new UsuarioResponseDTO(util.generateToken(userDetails.getUsername())));
 	}
 
