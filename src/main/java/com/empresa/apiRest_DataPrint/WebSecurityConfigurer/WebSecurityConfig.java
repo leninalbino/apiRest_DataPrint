@@ -41,6 +41,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/",// catalogo producto
             "/stripe/**"
     };
+    
+    public static final String privilegesUsuarios[]= {
+    		"/rest/v1/producto/**",
+            "/rest/v1/proveedor/**",
+            "/rest/v1/empleado/**",
+            "/rest/v1/categoria/**"
+    };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -52,14 +59,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                // .and()
                // .csrf().disable();// desactivar protocolo de validacion de a nivel de explorador
 
-        //http.cors().disable();
+        http.cors();
        // http.anonymous().disable();
         http.authorizeRequests()
+        		.antMatchers("/rest/v1/usuarios/listarUsuarios").permitAll()
                 .antMatchers("/rest/v1/usuarios/crearToken").permitAll()
                 .antMatchers(privilegesClients).hasRole("CLIENTE")
-                .antMatchers("/rest/v1/carrito/agregarCarrito/**").hasAnyRole("CLIENTE")
-                .antMatchers("/rest/v1/producto/**").hasAuthority("ADMIN")
-                .antMatchers("/rest/v1/proveedor/**").hasAuthority("ADMIN")
+               // .antMatchers("/rest/v1/carrito/agregarCarrito/**").hasAnyRole("CLIENTE")
+                .antMatchers("privilegesUsuarios").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
