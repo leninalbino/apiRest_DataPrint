@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -22,6 +23,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UsuarioDetailService usuarioDetailService;
@@ -32,14 +34,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private EntryPoint entryPoint;
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.inMemoryAuthentication().withUser("lenin").password(encriptado().encode("123456")).roles("ADMIN");
-        //auth.inMemoryAuthentication().withUser("albino").password(encriptado().encode("123456")).roles("ALUMNO");
         auth.userDetailsService(usuarioDetailService).passwordEncoder(encriptado());
     }
     public static final String privilegesClients []={
             "/rest/v1/carrito/agregarCarrito/**",
             "/",// catalogo producto
             "/stripe/**"
+    };
+    
+    public static final String privilegesUsuarios[]= {
+    		"/rest/v1/producto/**",
+            "/rest/v1/proveedor/**",
+            "/rest/v1/empleado/**",
+            "/rest/v1/categoria/**"
     };
 
     @Override
@@ -52,14 +59,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                // .and()
                // .csrf().disable();// desactivar protocolo de validacion de a nivel de explorador
 
-        //http.cors().disable();
+        http.cors();
        // http.anonymous().disable();
         http.authorizeRequests()
+
+        		.antMatchers("/rest/v1/usuarios/listarUsuarios").permitAll()
                 .antMatchers("/rest/v1/usuarios/crearToken").permitAll()
                 .antMatchers(privilegesClients).hasRole("CLIENTE")
-                //.antMatchers("/rest/v1/carrito/agregarCarrito/**").hasAnyRole("CLIENTE")
-                .antMatchers("/rest/v1/producto/**").hasAuthority("ADMIN")
-                .antMatchers("/rest/v1/proveedor/**").hasAuthority("ADMIN")
+               // .antMatchers("/rest/v1/carrito/agregarCarrito/**").hasAnyRole("CLIENTE")
+                .antMatchers(privilegesUsuarios).hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -82,16 +90,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
+    @Bean
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
 
-    @Bean
+   /* @Bean
     CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new
                 UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
-    }
+    }*/
 }

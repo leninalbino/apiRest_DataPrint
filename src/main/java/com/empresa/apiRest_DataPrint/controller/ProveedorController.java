@@ -41,7 +41,7 @@ public class ProveedorController {
 			return new ResponseEntity<Proveedor>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@GetMapping("/	")
+	@GetMapping("/listarProveedores")
 	public ResponseEntity<List<Proveedor>> ListarProveedor(){
 		return new ResponseEntity<List<Proveedor>>(proveedorService.listarProveedores(),HttpStatus.OK);
 	}
