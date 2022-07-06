@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class PaymentIntentDTO {
     public enum  Currency {
-        USD, EURO, NUEVOSOl;
+        PEN;
     }
     private String description; // descripcion
     private int amount; // precio

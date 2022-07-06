@@ -39,7 +39,8 @@ public class JWTokenFilter extends OncePerRequestFilter {
         if (correo != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails details =this.usuarioDetailService.loadUserByUsername(correo);
             if(jwtUtil.validateToken(token,details)){
-                UsernamePasswordAuthenticationToken correoToken = new UsernamePasswordAuthenticationToken(details,null,details.getAuthorities());
+                UsernamePasswordAuthenticationToken correoToken = new UsernamePasswordAuthenticationToken(
+                                                                details,null,details.getAuthorities());
                 correoToken.setDetails(new WebAuthenticationDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(correoToken);
             }

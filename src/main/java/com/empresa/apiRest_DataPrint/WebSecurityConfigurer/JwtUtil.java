@@ -27,7 +27,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
         // Recupera el usuario que se envia en el JWT
         public String getUsernameFromToken(String token) {
-            return getClaimFromToken(token, Claims::getSubject);
+            //return getClaimFromToken(token, Claims::getSubject);
+            return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
         }
 
         // Recupera la fecha de expiración que se envia en el JWT
