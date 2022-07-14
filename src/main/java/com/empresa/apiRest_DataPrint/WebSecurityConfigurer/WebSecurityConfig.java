@@ -46,7 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     		"/rest/v1/producto/**",
             "/rest/v1/proveedor/**",
             "/rest/v1/empleado/**",
-            "/rest/v1/categoria/**"
+            "/rest/v1/categoria/**",
+            "/rest/v1/categoria/eliminar/**"
     };
 
     @Override
@@ -97,11 +98,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-   /* @Bean
+   @Bean
     CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new
                 UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
-    }*/
+    }
 }

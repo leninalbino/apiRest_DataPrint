@@ -22,11 +22,9 @@ public class Categorias implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idcategorias")
     private long idcategorias;
-    @Column(name = "nombreCate")
+    @Column(name = "nombreCate",nullable = true)
     private String nombreCate;
  
- public boolean validarNombre(String nombre){
-     return this.getNombreCate() != null;
- }
+ 
  
 }

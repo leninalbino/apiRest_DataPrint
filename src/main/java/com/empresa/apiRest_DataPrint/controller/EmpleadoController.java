@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.empresa.apiRest_DataPrint.service.EmpleadoService;
 
 @RestController
 @RequestMapping("/rest/v1/empleado")
+@CrossOrigin(origins ={"http://localhost:4200"})
 public class EmpleadoController {
 	Logger logger = LoggerFactory.getLogger(EmpleadoController.class);
 	
@@ -50,10 +52,10 @@ public class EmpleadoController {
 		Map<String, Object> response= new HashMap<>();
 		Empleado e=empleadoService.buscarByDni(empleado.getDniEml());
 		if(e !=null) {
-			response.put("Mensaje", "Ya existe empleado con este DNI...");
+			response.put("Mensaje", "Ya existe empleado con este DNI");
 		}else {
 			Empleado empleados=empleadoService.registrarEmpleado(empleado);
-			response.put("String", "Empleado registrado correctamente ...");
+			response.put("Mensaje", "Empleado registrado correctamente");
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
