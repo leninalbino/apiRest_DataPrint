@@ -1,17 +1,21 @@
 package com.empresa.apiRest_DataPrint.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
+import com.empresa.apiRest_DataPrint.excepciones.Mensaje;
+import org.springframework.validation.BindingResult;
 import com.empresa.apiRest_DataPrint.DTO.UsuarioRequestDTO;
 import com.empresa.apiRest_DataPrint.DTO.UsuarioResponseDTO;
 import com.empresa.apiRest_DataPrint.WebSecurityConfigurer.JwtUtil;
 import com.empresa.apiRest_DataPrint.WebSecurityConfigurer.UsuarioDetailService;
 import com.empresa.apiRest_DataPrint.model.AuthToken;
 import com.empresa.apiRest_DataPrint.model.LoginUsuario;
-import com.empresa.apiRest_DataPrint.model.UsuariosDto;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,15 +83,23 @@ public class UsuariosController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
+
 	@PostMapping("/crearToken")
-	public ResponseEntity<?> crearToken(@RequestBody UsuarioRequestDTO dto){
-
-		UserDetails userDetails = serviceUser.loadUserByUsername(dto.getCorreo());
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(dto.getCorreo(), dto.getClave()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return ResponseEntity.ok(new UsuarioResponseDTO(util.generateToken(userDetails.getUsername())));
+	public ResponseEntity<?> crearToken(@RequestBody UsuarioRequestDTO usuarioRequestDTO) {
+		final Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(
+						usuarioRequestDTO.getCorreo(),
+						usuarioRequestDTO.getClave()
+				)
+		);
+		final String token = util.generateToken( authentication);
+		return ResponseEntity.ok(new AuthToken(token));
 	}
-
-
+	@PostMapping("/refresh")
+	public ResponseEntity<UsuarioResponseDTO> refresh(@RequestBody UsuarioResponseDTO jwtDto) throws ParseException {
+		String token = util.refreshToken(jwtDto);
+		UsuarioResponseDTO jwt = new UsuarioResponseDTO(token);
+		return new ResponseEntity(jwt, HttpStatus.OK);
+	}
 }

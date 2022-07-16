@@ -26,7 +26,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private UsuarioDetailService usuarioDetailService;
+    private UserDetailsService usuarioDetailService;
 
     @Autowired
     private JWTokenFilter filter;
@@ -50,27 +50,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/rest/v1/categoria/eliminar/**"
     };
 
+    // Configurar la parte generica
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-       // http.authorizeRequests()
-        //        .antMatchers("/rest/v1/producto/**").access("hasRole('ROLE_ADMIN')")// autorizacion a usuarios
-          //      //.antMatchers("/rest/v1/producto/**").permitAll() // autorizacion a todo los usuario
-            //    .and()
-              //  .httpBasic()
-               // .and()
-               // .csrf().disable();// desactivar protocolo de validacion de a nivel de explorador
-
-        http.cors();
        // http.anonymous().disable();
         http.authorizeRequests()
 
-        		.antMatchers("/rest/v1/usuarios/listarUsuarios").permitAll()
+        		//.antMatchers("/rest/v1/usuarios/listarUsuarios").permitAll()
                 .antMatchers("/rest/v1/usuarios/crearToken").permitAll()
                 .antMatchers(privilegesClients).hasRole("CLIENTE")
                // .antMatchers("/rest/v1/carrito/agregarCarrito/**").hasAnyRole("CLIENTE")
                 .antMatchers(privilegesUsuarios).hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
+                .and()
+                .cors()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(entryPoint)
@@ -87,22 +81,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
 
-    @Bean
-    @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
-    }
 
-   @Bean
+   /* @Bean
     CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new
                 UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
+
+    */
 }
