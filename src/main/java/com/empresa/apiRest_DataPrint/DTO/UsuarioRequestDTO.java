@@ -1,12 +1,16 @@
 package com.empresa.apiRest_DataPrint.DTO;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Data
-@Getter
 @Setter
+
+@Getter
+
+@AllArgsConstructor
+
+@NoArgsConstructor
+
+@ToString
 public class UsuarioRequestDTO {
     private String correo;
     private String clave;
