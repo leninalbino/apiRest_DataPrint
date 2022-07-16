@@ -33,8 +33,8 @@ public class Empleado implements Serializable {
 	private String passwordEmpl;
 	@Column(name = "rolEmpl", nullable = true, length = 45)
 	private String rolEmpl;
-	@Column(name = "estadoEmpl",nullable = true)
-	private boolean estadoEmpl;
+	@Column(name = "estadoEmpl",nullable = true,length = 1)
+	private String estadoEmpl;
 	
 
 }

@@ -8,11 +8,18 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Setter
+
+@Getter
+
+@AllArgsConstructor
+
+@NoArgsConstructor
+
+@ToString
+
 @Entity
 @Table(name = "roles")
 public class Roles implements Serializable {
@@ -26,8 +33,14 @@ public class Roles implements Serializable {
 	@Column(name = "rol", nullable = false)
 	private String rol;
 
+	public Roles(String rol) {
+		this.rol = rol;
+	}
 
-	@OneToMany(mappedBy = "roles",cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	//@OneToMany(mappedBy = "roles",cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	//@JsonIgnoreProperties("roles")
+	//private List<Usuarios> usuarios = new ArrayList<>();
+	@ManyToMany(mappedBy = "roles",cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	@JsonIgnoreProperties("roles")
 	private List<Usuarios> usuarios = new ArrayList<>();
 

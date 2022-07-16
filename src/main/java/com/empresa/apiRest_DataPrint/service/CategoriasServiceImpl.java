@@ -17,19 +17,19 @@ public class CategoriasServiceImpl implements CategoriasService {
 	public CategoriasRepository categoriasRespository;
 
 	@Override
-	public void agregarCategorias(Categorias categoria) {
+	public Categorias agregarCategorias(Categorias categoria) {
 			//Categorias c = new Categorias();
 			//c.setNombreCate(categoria.getNombreCate());
-			categoriasRespository.save(categoria);
+			return categoriasRespository.save(categoria);
 		
 	}
 
 	@Override
-	public void editarCategorias(Categorias categoria) {
+	public Categorias editarCategorias(Categorias categoria) {
 		Categorias c = new Categorias();
 		c.setNombreCate(categoria.getNombreCate());
 		c.setIdcategorias(categoria.getIdcategorias());
-		categoriasRespository.saveAndFlush(categoria);
+		return categoriasRespository.saveAndFlush(categoria);
 		
 	}
 
@@ -52,15 +52,15 @@ public class CategoriasServiceImpl implements CategoriasService {
 		return categoriasRespository.findByIdcategorias(id);
 	}
 
-	@Override
-	public Optional eliminarCategorias(Long id) {
-		List<Categorias> categorias = categoriasRespository.findAll();
-		if(id != null) {
-			categorias.stream().filter(item -> (item.getIdcategorias() == id)).findFirst();
-            categoriasRespository.deleteById(id);
-		}
-		return null;
-	}
+	//@Override
+	//public Optional eliminarCategorias(Long id) {
+	//	List<Categorias> categorias = categoriasRespository.findAll();
+	//	if(id != null) {
+	//		categorias.stream().filter(item -> (item.getIdcategorias() == id)).findFirst();
+    //       categoriasRespository.deleteById(id);
+	//	}
+	//	return null;
+	//}
 
 	@Override
 	public Categorias  buscarByNombre(String nombre) {
@@ -68,6 +68,16 @@ public class CategoriasServiceImpl implements CategoriasService {
 			return categoriasRespository.findByNombre(nombre);
 
 
+	}
+
+	@Override
+	public boolean eliminarCategorias(Long id) {
+		Optional<Categorias> _c=categoriasRespository.findById(id);
+		if(_c!=null) {
+			categoriasRespository.delete(_c.get());
+			return true;
+		}
+		return false;
 	}
 	
 
