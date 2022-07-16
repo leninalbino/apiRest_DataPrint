@@ -30,7 +30,7 @@ public class Producto implements Serializable {
     private String imageProp;
     @Column(name = "nombrePro")
     private String nombrePro;
-    @Column(name = "estadoPro")
+
     private boolean estadoPro;
 
 	//@JsonIgnore

@@ -149,7 +149,7 @@ import javax.crypto.SecretKey;
                 .collect(Collectors.joining(","));
         return Jwts.builder()
                 .setSubject(authentication.getName())
-                .claim(secret, authorities)
+                .claim("Roles", authorities)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*1000))

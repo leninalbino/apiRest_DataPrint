@@ -38,11 +38,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     public static final String privilegesClients []={
             "/rest/v1/carrito/agregarCarrito/**",
-            "/",// catalogo producto
+            //"/",// catalogo producto
             "/stripe/**"
     };
     
     public static final String privilegesUsuarios[]= {
+            "/rest/v1/usuarios/**",
+            "/rest/v1/cliente/**",
     		"/rest/v1/producto/**",
             "/rest/v1/proveedor/**",
             "/rest/v1/empleado/**",
@@ -56,10 +58,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
        // http.anonymous().disable();
         http.authorizeRequests()
 
-        		//.antMatchers("/rest/v1/usuarios/listarUsuarios").permitAll()
+        		.antMatchers("/").permitAll()
                 .antMatchers("/rest/v1/usuarios/crearToken").permitAll()
                 .antMatchers(privilegesClients).hasRole("CLIENTE")
-               // .antMatchers("/rest/v1/carrito/agregarCarrito/**").hasAnyRole("CLIENTE")
+               //.antMatchers("/rest/v1/carrito/agregarCarrito/**").hasAnyRole("CLIENTE")
                 .antMatchers(privilegesUsuarios).hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()

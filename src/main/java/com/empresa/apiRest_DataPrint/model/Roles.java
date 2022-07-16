@@ -40,9 +40,12 @@ public class Roles implements Serializable {
 	//@OneToMany(mappedBy = "roles",cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	//@JsonIgnoreProperties("roles")
 	//private List<Usuarios> usuarios = new ArrayList<>();
-	@ManyToMany(mappedBy = "roles",cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+
+	/* @ManyToMany(mappedBy = "roles",cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	@JsonIgnoreProperties("roles")
 	private List<Usuarios> usuarios = new ArrayList<>();
+
+	 */
 
 
 
