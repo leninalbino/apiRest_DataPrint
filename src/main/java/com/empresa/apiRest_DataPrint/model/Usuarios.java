@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 @Setter
@@ -48,6 +50,10 @@ public class Usuarios  {
 	@JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"),
 			uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "role_id"})})
 	private List<Roles> roles;
+
+	@OneToOne(mappedBy = "usuario")
+	@JsonIgnoreProperties("usuario")
+	private Clientes clientes;
 
 
 }
