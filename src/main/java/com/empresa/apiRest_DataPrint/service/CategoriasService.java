@@ -7,11 +7,12 @@ import com.empresa.apiRest_DataPrint.model.Categorias;
 
 public interface CategoriasService {
 	
-	public void agregarCategorias(Categorias categoria);
+	public Categorias agregarCategorias(Categorias categoria);
 	
-	public void editarCategorias(Categorias categoria);
+	public Categorias editarCategorias(Categorias categoria);
 	
-	public Optional eliminarCategorias(Long id);
+	//public Optional<Categorias> eliminarCategorias(Long id);
+	boolean eliminarCategorias(Long id);
 	
 	public List<Categorias> listarCategorias();
 	

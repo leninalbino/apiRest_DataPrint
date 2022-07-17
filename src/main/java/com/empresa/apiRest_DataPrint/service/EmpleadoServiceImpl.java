@@ -34,7 +34,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 		e.setCorreoEmpl(empleado.getCorreoEmpl());
 		e.setDniEml(empleado.getDniEml());
 		e.setPasswordEmpl(empleado.getPasswordEmpl());
-		e.setEstadoEmpl(empleado.isEstadoEmpl());
+		e.setEstadoEmpl(empleado.getEstadoEmpl());
 		
 		return empleadoRepository.saveAndFlush(empleado);
 	}

@@ -23,9 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.apiRest_DataPrint.model.Producto;
 import com.empresa.apiRest_DataPrint.service.ProductoService;
-@CrossOrigin(origins ={"http://localhost:4200","http://localhost:8086"} )
+
 @RestController
 @RequestMapping("/rest/v1/producto")
+@CrossOrigin(origins ={"http://localhost:4200"})
 public class ProductoController {
 	Logger logger = LoggerFactory.getLogger(ProductoController.class);
 	@Autowired

@@ -3,7 +3,7 @@ package com.empresa.apiRest_DataPrint.service;
 import java.util.List;
 
 import com.empresa.apiRest_DataPrint.model.Usuarios;
-import com.empresa.apiRest_DataPrint.model.UsuariosDto;
+//import com.empresa.apiRest_DataPrint.model.UsuariosDto;
 import org.springframework.stereotype.Service;
 
 

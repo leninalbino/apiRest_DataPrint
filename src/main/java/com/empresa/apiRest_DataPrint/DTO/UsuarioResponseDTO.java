@@ -1,18 +1,23 @@
 package com.empresa.apiRest_DataPrint.DTO;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import com.empresa.apiRest_DataPrint.model.Usuarios;
+import lombok.*;
 
-@Data
-@Getter
+import java.util.List;
+
 @Setter
-public class UsuarioResponseDTO {
-    private String token ;
 
-    public UsuarioResponseDTO(String token) {
-        this.token = token;
-    }
+@Getter
+
+@AllArgsConstructor
+
+@NoArgsConstructor
+
+@ToString
+public class UsuarioResponseDTO {
+    //private String email;
+    private String tokenDeAcceso;
+   // private String tipoDeToken = "Bearer";
 
 
 }

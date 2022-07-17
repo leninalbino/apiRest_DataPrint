@@ -23,9 +23,11 @@ import com.empresa.apiRest_DataPrint.model.Categorias;
 import com.empresa.apiRest_DataPrint.service.CategoriasService;
 
 
-@CrossOrigin(origins ={"http://localhost:4200","http://localhost:8086"} )
+
 @RestController
 @RequestMapping("/rest/v1/categoria")
+@CrossOrigin(origins ={"http://localhost:4200"})
+
 public class CategoriasController {
 	Logger logger = LoggerFactory.getLogger(CategoriasController.class);
 	
@@ -50,21 +52,22 @@ public class CategoriasController {
 			return new ResponseEntity<Categorias>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@PostMapping
-	@RequestMapping(path = "/agregar")
+	@PostMapping("/agregar")
 	public ResponseEntity<?> agregar(@RequestBody Categorias categoria){
 		Map<String, Object> response= new HashMap<String, Object>();
-		Categorias cat ;
-		cat = categoriaService.buscarByNombre(categoria.getNombreCate());
-		if(cat != null) {
-			response.put("Mensaje", "Nombre categoria ya existe ..");
-			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
+		//Categorias cat ;
+		Categorias c=categoriaService.buscarByNombre(categoria.getNombreCate());
+		//cat = categoriaService.buscarByNombre(categoria.getNombreCate());
+		if(c != null) {
+			response.put("Mensaje", "Nombre categoria ya existe");
+			
 			//return  ResponseEntity.ok(response);
 		}else {
+			Categorias categorias=categoriaService.agregarCategorias(categoria);
 			response.put("Mensaje", "Registrado correctamento");
 		categoriaService.agregarCategorias(categoria);
 		}
-		return  ResponseEntity.ok(response);	
+		return  ResponseEntity.status(HttpStatus.CREATED).body(response);	
 	}
 	@PutMapping
 	@RequestMapping("/actualizarCategoria")
@@ -99,22 +102,27 @@ public class CategoriasController {
 		 
 	 
     }
-	@DeleteMapping
-	@RequestMapping(path = "/eliminar/{id}")
-	public ResponseEntity<?> eliminarCategorias(@PathVariable("id") Long id){
+	//@DeleteMapping
+	//@RequestMapping(path = "/eliminar/{id}")
+	//public ResponseEntity<?> eliminarCategorias(@PathVariable("id") Long id){
 		
-		Map<String, Object> response = new HashMap<>();
+	//	Map<String, Object> response = new HashMap<>();
 		 
-		 Categorias c = categoriaService.buscarCategoriasId(id);
+	//	 Categorias c = categoriaService.buscarCategoriasId(id);
 		 
-		 if(c !=null) {
-			 categoriaService.eliminarCategorias(id);
-			 response.put("Mensaje", "Categoria eliminado correctamente");
-			 return ResponseEntity.ok(response);	 
-		 }else {
-			 response.put("Mensaje", "Categoria no existe");
-			 return ResponseEntity.ok(response); 
-		 } 
+	//	 if(c !=null) {
+	//		 categoriaService.eliminarCategorias(id);
+	//		 response.put("Mensaje", "Categoria eliminado correctamente");
+	//		 return ResponseEntity.ok(response);	 
+	//	 }else {
+	//		 response.put("Mensaje", "Categoria no existe");
+	//		 return ResponseEntity.ok(response); 
+	//	 } 
+	//}
+	@DeleteMapping(path ="/eliminar/{id}")
+	public boolean eliminar(@PathVariable("id") Long id) {
+		return categoriaService.eliminarCategorias(id);
 	}
+	
 
 }
