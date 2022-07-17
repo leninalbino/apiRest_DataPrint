@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     public static final String privilegesClients []={
             "/rest/v1/carrito/agregarCarrito/**",
-            "/",// catalogo producto
+            /* "/", */// catalogo producto
             "/stripe/**"
     };
     
@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
        // http.anonymous().disable();
         http.authorizeRequests()
-
+                .antMatchers("/").permitAll()
         		.antMatchers("/rest/v1/usuarios/listarUsuarios").permitAll()
                 .antMatchers("/rest/v1/usuarios/crearToken").permitAll()
                 .antMatchers(privilegesClients).hasRole("CLIENTE")
