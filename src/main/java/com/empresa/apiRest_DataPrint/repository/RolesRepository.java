@@ -6,4 +6,5 @@ import com.empresa.apiRest_DataPrint.model.Roles;
 
 public interface RolesRepository extends JpaRepository<Roles, Long> {
     Roles findByRol(String rol);
+
 }

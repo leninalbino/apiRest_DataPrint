@@ -20,7 +20,7 @@ public class Categorias implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idcategorias")
+    @Column(name = "idcategorias", nullable = true)
     private long idcategorias;
     @Column(name = "nombreCate",nullable = true)
     private String nombreCate;

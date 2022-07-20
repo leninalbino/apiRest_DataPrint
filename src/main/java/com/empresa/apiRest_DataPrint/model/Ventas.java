@@ -40,6 +40,6 @@ public class Ventas implements Serializable{
     private Pagos pago;
     
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Clientes cliente;
+    @JoinColumn(name = "usuario_id")
+    private Usuarios usuarios;
 }

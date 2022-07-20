@@ -27,7 +27,7 @@ import com.empresa.apiRest_DataPrint.service.CaracteristicaService;
 @RequestMapping("/rest/v1/caracterizticas")
 public class CaracterizticasController {
 	
-	Logger logger= LoggerFactory.getLogger(ClientesController.class);
+	Logger logger= LoggerFactory.getLogger(CaracterizticasController.class);
 	
 	@Autowired
 	private CaracteristicaService caracterizticasService;

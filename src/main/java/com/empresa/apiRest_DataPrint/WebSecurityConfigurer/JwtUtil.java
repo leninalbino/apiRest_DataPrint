@@ -13,7 +13,7 @@ import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.JWTParser;
 import com.empresa.apiRest_DataPrint.DTO.UsuarioResponseDTO;
-import com.empresa.apiRest_DataPrint.excepciones.BlogAppException;
+//import com.empresa.apiRest_DataPrint.excepciones.BlogAppException;
 import com.empresa.apiRest_DataPrint.model.Usuarios;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.*;
@@ -155,6 +155,7 @@ import javax.crypto.SecretKey;
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*1000))
                 .compact();
     }
+    /*
     private String createToken(UserDetails userDetails) {
         return Jwts.builder()
                 .claim("ROLE", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
@@ -164,7 +165,7 @@ import javax.crypto.SecretKey;
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS256, key).compact();
     }
-
+*/
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
