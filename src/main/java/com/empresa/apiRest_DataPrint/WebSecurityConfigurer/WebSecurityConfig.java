@@ -38,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     public static final String privilegesClients []={
             "/rest/v1/carrito/agregarCarrito/**",
-            //"/",// catalogo producto
             "/stripe/**"
     };
     
@@ -51,17 +50,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/rest/v1/categoria/**",
             "/rest/v1/categoria/eliminar/**"
     };
+    public static final String permitAll[]= {
+            "/stripe/paymentIntent",
+            "/stripe/confirm/**",
+            "/validarCodigoVerificacion/**",
+            "/registrar/**",
+            "/",
+            "/rest/v1/usuarios/crearToken"
+    };
 
     // Configurar la parte generica
     @Override
     protected void configure(HttpSecurity http) throws Exception {
        // http.anonymous().disable();
         http.authorizeRequests()
-
-        		.antMatchers("/").permitAll()
-                .antMatchers("/rest/v1/usuarios/crearToken").permitAll()
+                .antMatchers(permitAll).permitAll()
                 .antMatchers(privilegesClients).hasRole("CLIENTE")
-               //.antMatchers("/rest/v1/carrito/agregarCarrito/**").hasAnyRole("CLIENTE")
                 .antMatchers(privilegesUsuarios).hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()

@@ -30,7 +30,7 @@ public class UsuarioDetailService implements UserDetailsService {
             new UsernameNotFoundException("Usuario no encontrado con ese username o email : " + username);
 
         }
-        return new User(usuario.getCorreo(), usuario.getClave(), mapearRoles(usuario.getRoles()));
+        return new User(usuario.getCorreo(), usuario.getClave(),usuario.getEnable(),true,true,true , mapearRoles(usuario.getRoles()));
     }
 
     private List<GrantedAuthority> mapearRoles(List<Roles> roles){

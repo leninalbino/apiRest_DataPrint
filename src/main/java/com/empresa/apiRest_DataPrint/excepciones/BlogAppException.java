@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
-
+/*
 @Data
 @Getter
 @Setter
@@ -16,3 +16,6 @@ public class BlogAppException extends RuntimeException{
     private HttpStatus estado;
     private String mensaje;
 }
+
+
+ */
