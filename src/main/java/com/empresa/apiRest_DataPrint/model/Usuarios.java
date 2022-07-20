@@ -2,6 +2,7 @@ package com.empresa.apiRest_DataPrint.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -29,6 +30,23 @@ public class Usuarios  {
 	@Column(name = "idusuarios")
 	private Long idusuarios;
 
+	@Column(name = "nombre", nullable = true, length = 45)
+	private String nombre;
+
+	@Column(name = "apellido", nullable = true, length = 45)
+	private String apellido;
+
+	@Column(name = "dni", nullable = true, length = 8)
+	private String dni;
+
+	@Column(name = "telefono", nullable = true, length = 45)
+	private String telefono;
+
+
+	@Column(name="direcc")
+	private String direcc;
+
+
 	@Column(name = "correo", nullable = false)
 	private String correo;
 
@@ -38,6 +56,9 @@ public class Usuarios  {
 	@Column(name = "fecrea")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecrea;
+
+	@Column(length = 6,updatable = false, nullable = true)
+	private String tokenVerificacion;
 
 	private Boolean enable;
 	// en la relacion de many to one va el @JoinColumn y colocamos
@@ -50,10 +71,6 @@ public class Usuarios  {
 	@JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"),
 			uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "role_id"})})
 	private List<Roles> roles;
-
-	@OneToOne(mappedBy = "usuario")
-	@JsonIgnoreProperties("usuario")
-	private Clientes clientes;
 
 
 }

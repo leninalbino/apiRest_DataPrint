@@ -34,8 +34,8 @@ public class CategoriasController {
 	@Autowired
 	private CategoriasService categoriaService;
 	
-	@GetMapping
-	@RequestMapping(path = "/listar")
+	
+	@GetMapping(path = "/listar")
 	public ResponseEntity<List<Categorias>> listarCategorias(){
 		return new ResponseEntity<List<Categorias>>(categoriaService.listarCategorias(), HttpStatus.OK);
 	}

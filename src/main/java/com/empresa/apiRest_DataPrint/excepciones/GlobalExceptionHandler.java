@@ -1,5 +1,5 @@
 package com.empresa.apiRest_DataPrint.excepciones;
-
+/*
 import com.empresa.apiRest_DataPrint.DTO.ErrorDetalles;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -16,8 +16,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
     @ExceptionHandler(ConfigDataResourceNotFoundException.class)
     public ResponseEntity<ErrorDetalles> manejarResourceNotFoundException(ConfigDataResourceNotFoundException exception, WebRequest webRequest){
         ErrorDetalles errorDetalles = new ErrorDetalles(new Date(),exception.getMessage(), webRequest.getDescription(false));
@@ -50,3 +51,5 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errores,HttpStatus.BAD_REQUEST);
     }
 }
+
+ */

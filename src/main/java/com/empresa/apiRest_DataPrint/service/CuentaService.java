@@ -1,0 +1,16 @@
+package com.empresa.apiRest_DataPrint.service;
+
+import com.empresa.apiRest_DataPrint.model.Usuarios;
+
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
+import java.util.Optional;
+
+public interface CuentaService {
+
+    boolean registrarse(Usuarios usuarios) throws MessagingException, UnsupportedEncodingException;
+
+     void verificaUsuario(String tokenVerificador);
+
+     Usuarios encontrarTokenVerificacion(String tokenVerificacion);
+}

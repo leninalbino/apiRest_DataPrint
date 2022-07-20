@@ -1,5 +1,5 @@
 package com.empresa.apiRest_DataPrint.excepciones;
-
+/*
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -25,3 +25,6 @@ public class ResourceNotFoundException {
         this.valorDelCampo = valorDelCampo;
     }
 }
+
+
+ */
