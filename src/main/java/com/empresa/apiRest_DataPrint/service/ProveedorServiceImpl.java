@@ -7,6 +7,7 @@ import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.empresa.apiRest_DataPrint.model.Categorias;
 import com.empresa.apiRest_DataPrint.model.Proveedor;
 import com.empresa.apiRest_DataPrint.repository.ProveedorRepository;
 
@@ -43,19 +44,29 @@ public class ProveedorServiceImpl implements ProveedorService {
 		return proveedorRepository.saveAndFlush(proveedor);
 	}
 
-	@Override
-	public Optional eliminarProveedor(Long id) {
-		List<Proveedor> proveedores=proveedorRepository.findAll();
-		if(id !=null) {
-			proveedores.stream().filter(item -> (item.getIdProveedor() ==id)).findFirst();
-			proveedorRepository.deleteById(id);
-		}
-		return null;
-	}
+//	@Override
+//	public Optional eliminarProveedor(Long id) {
+//		List<Proveedor> proveedores=proveedorRepository.findAll();
+//		if(id !=null) {
+//			proveedores.stream().filter(item -> (item.getIdProveedor() ==id)).findFirst();
+//			proveedorRepository.deleteById(id);
+//		}
+//		return null;
+//	}
 
 	@Override
 	public Proveedor buscarByNombre(String nombre) {
 		return proveedorRepository.findByNombre(nombre);
+	}
+
+	@Override
+	public boolean eliminarProveedores(Long id) {
+		Optional<Proveedor> _c=proveedorRepository.findById(id);
+		if(_c!=null) {
+			proveedorRepository.delete(_c.get());
+			return true;
+		}
+		return false;
 	}
 
 }
