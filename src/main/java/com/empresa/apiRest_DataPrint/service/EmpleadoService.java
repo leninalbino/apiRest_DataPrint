@@ -15,7 +15,9 @@ public interface EmpleadoService {
 	
 	public Empleado registrarEmpleado(Empleado empleado);
 	
-	public Optional eliminarEmpleado(Long id);
+	//public Optional eliminarEmpleado(Long id);
+	
+	boolean eliminarEmpleado(Long id);
 	
 	public Empleado buscarByDni(String dni);
 

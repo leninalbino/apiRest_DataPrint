@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import com.empresa.apiRest_DataPrint.service.ProveedorService;
 
 @RestController
 @RequestMapping("/rest/v1/proveedor")
+@CrossOrigin(origins ={"http://localhost:4200"})
 public class ProveedorController {
 	Logger logger=LoggerFactory.getLogger(ProveedorController.class);
 	@Autowired
@@ -41,7 +43,7 @@ public class ProveedorController {
 			return new ResponseEntity<Proveedor>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@GetMapping("/listarProveedores")
+	@GetMapping(path =  "/listarProveedores")
 	public ResponseEntity<List<Proveedor>> ListarProveedor(){
 		return new ResponseEntity<List<Proveedor>>(proveedorService.listarProveedores(),HttpStatus.OK);
 	}
@@ -59,20 +61,26 @@ public class ProveedorController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
+//	@DeleteMapping("/eliminarProveedor/{id}")
+//	public ResponseEntity<?> eliminarProveedor(@PathVariable("id") long id){
+//		Map<String, Object> response = new HashMap<>();
+//		
+//		Proveedor p= proveedorService.buscarProveedorId(id);
+//		if(p  !=null) {
+//			proveedorService.eliminarProveedor(id);
+//			response.put("Mensaje", "Proveedor eliminado correctamente");
+//			return ResponseEntity.ok(response);
+//		}else {
+//			response.put("Mensaje", "Proveedor no existe");
+//			return ResponseEntity.ok(response);
+//		}
+//	}
+	
 	@DeleteMapping("/eliminarProveedor/{id}")
-	public ResponseEntity<?> eliminarProveedor(@PathVariable("id") long id){
-		Map<String, Object> response = new HashMap<>();
-		
-		Proveedor p= proveedorService.buscarProveedorId(id);
-		if(p  !=null) {
-			proveedorService.eliminarProveedor(id);
-			response.put("Mensaje", "Proveedor eliminado correctamente");
-			return ResponseEntity.ok(response);
-		}else {
-			response.put("Mensaje", "Proveedor no existe");
-			return ResponseEntity.ok(response);
-		}
+	public boolean eliminar(@PathVariable("id") Long id) {
+		return proveedorService.eliminarProveedores(id);
 	}
+	
 	
 	@PutMapping("/actualizarProveedor")
 	public ResponseEntity<?> actualizarProveedor(@RequestBody Proveedor proveedor){
