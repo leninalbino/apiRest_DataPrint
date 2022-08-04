@@ -15,7 +15,9 @@ public interface ProveedorService {
 	
 	public Proveedor actualizarProveedor(Proveedor proveedor);
 	
-	public Optional eliminarProveedor(Long id);
+	//public Optional eliminarProveedor(Long id);
+	
+	boolean eliminarProveedores(Long id);
 	
 	public Proveedor buscarByNombre(String nombre);
 

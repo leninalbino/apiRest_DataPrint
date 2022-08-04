@@ -59,20 +59,25 @@ public class EmpleadoController {
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
-	@DeleteMapping
-	@RequestMapping("/eliminarEmpleado/{id}")
-	public ResponseEntity<?> eliminarEmpleado(@PathVariable("id") long id){
-		Map<String, Object> response= new HashMap<>();
-		Empleado e=empleadoService.buscarEmpleadoId(id);
-		
-		if(e !=null) {
-			empleadoService.eliminarEmpleado(id);
-			response.put("Mensaje", "Empleado eliminado correctamente");
-			return ResponseEntity.ok(response);
-		}else {
-			response.put("Mensaje", "Empleado no exite");
-			return ResponseEntity.ok(response);
-		}
+//	@DeleteMapping
+//	@RequestMapping("/eliminarEmpleado/{id}")
+//	public ResponseEntity<?> eliminarEmpleado(@PathVariable("id") long id){
+//		Map<String, Object> response= new HashMap<>();
+//		Empleado e=empleadoService.buscarEmpleadoId(id);
+//		
+//		if(e !=null) {
+//			empleadoService.eliminarEmpleado(id);
+//			response.put("Mensaje", "Empleado eliminado correctamente");
+//			return ResponseEntity.ok(response);
+//		}else {
+//			response.put("Mensaje", "Empleado no exite");
+//			return ResponseEntity.ok(response);
+//		}
+//	}
+	
+	@DeleteMapping(path ="/eliminarEmpleado/{id}")
+	public boolean eliminar(@PathVariable("id") Long id) {
+		return empleadoService.eliminarEmpleado(id);
 	}
 	
 	@PutMapping("/actualizarEmpleado")

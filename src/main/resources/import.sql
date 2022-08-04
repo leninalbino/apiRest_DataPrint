@@ -9,5 +9,5 @@ insert into roles (rol) values ('ROLE_EMPLEADO');
 INSERT INTO usuarios_roles (usuario_id, role_id) values (1,1);
 INSERT INTO usuarios_roles (usuario_id, role_id) values (2,2);
 
-insert into productos(estadoPro, imageProp, nombrePro, categoria_id) values("","", "cuaderno 100 hojas", "1");
+--insert into productos(estadoPro, imageProp, nombrePro, categoria_id) values("","", "cuaderno 100 hojas", "1");
 -- INSERT INTO usuarios_roles (usuario_id, role_id) values (2,1);
