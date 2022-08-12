@@ -1,13 +1,11 @@
 package com.empresa.apiRest_DataPrint.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.empresa.apiRest_DataPrint.model.Caracteristicas;
 import com.empresa.apiRest_DataPrint.model.Categorias;
 import com.empresa.apiRest_DataPrint.model.Producto;
 import com.empresa.apiRest_DataPrint.repository.CaracteristicaRepository;

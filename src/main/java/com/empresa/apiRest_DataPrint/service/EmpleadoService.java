@@ -1,10 +1,8 @@
 package com.empresa.apiRest_DataPrint.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.empresa.apiRest_DataPrint.model.Empleado;
-
 public interface EmpleadoService {
 	
 	public List<Empleado> listarEmpleado();
@@ -15,10 +13,10 @@ public interface EmpleadoService {
 	
 	public Empleado registrarEmpleado(Empleado empleado);
 	
-	//public Optional eliminarEmpleado(Long id);
-	
 	boolean eliminarEmpleado(Long id);
 	
 	public Empleado buscarByDni(String dni);
+	
+	public Empleado obtenerEmpleadoId(Long id);
 
 }

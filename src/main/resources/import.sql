@@ -1,5 +1,5 @@
 
-INSERT into usuarios (correo, clave , enable) values ('admin@gmail.com', '$2a$12$3fN/lWdMe7La.TRP/33MjeseG8LrPntSrJAOYYw9M/ARrZwBXnfE2', 1);
+INSERT into usuarios (correo, clave , enable) values ('admin@gmail.com', '$2a$12$3PClXBgrJyqGRz5VvRkpQezeLEbdG39AkeST.zAfkbVJMAR3wADu2', 1);
 INSERT into usuarios (correo, clave , enable) values ('cliente@gmail.com', '$2a$12$7BIYCEADFZVs63CXAqj0/uKmjzN78wnjZL2GiyBAPr.OnXXtqh68O', 1)
 
 insert into roles (rol) values ('ROLE_ADMIN');

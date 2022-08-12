@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.empresa.apiRest_DataPrint.model.Empleado;
 import com.empresa.apiRest_DataPrint.model.Proveedor;
+import com.empresa.apiRest_DataPrint.model.Usuarios;
 import com.empresa.apiRest_DataPrint.service.ProveedorService;
 
 @RestController
@@ -84,24 +86,17 @@ public class ProveedorController {
 	
 	@PutMapping("/actualizarProveedor")
 	public ResponseEntity<?> actualizarProveedor(@RequestBody Proveedor proveedor){
-		Map<String, Object> response= new HashMap<>();
-		
-		Proveedor p = proveedorService.buscarByNombre(proveedor.getNombreEmpresa());
-		Proveedor prove=proveedorService.buscarProveedorId(proveedor.getIdProveedor());
-		if(prove !=null) {
-			if(p ==null) {
+		Proveedor prove=proveedorService.obtenerProveeorId(proveedor.getIdProveedor());
+		Map<String, Object> response=new HashMap<>();
+		if(prove!=null) {
 			proveedorService.actualizarProveedor(proveedor);
-			response.put("Mensaje", "Actualizado correctamente");
+			response.put("Mensaje", "Proveedor actualizado correctamente"); 
 		}else {
-			response.put("Mensaje", "Error: El nombre del proveedor ya existe");
+			response.put("Mensaje", "Proveedor no existe");
+			
 		}
-		 
-	 }else {
-		 response.put("Mensaje", "Proveedor no existe"); 
-	 } 
-	 return ResponseEntity.status(HttpStatus.CREATED).body(response); 
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 }
 }
-
 
 
