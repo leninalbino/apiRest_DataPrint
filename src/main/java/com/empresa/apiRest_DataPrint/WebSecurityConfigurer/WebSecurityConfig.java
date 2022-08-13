@@ -38,7 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     public static final String privilegesClients []={
             "/rest/v1/carrito/agregarCarrito/**",
-            "/stripe/**"
+            "/stripe/**",
+            "api/v1/ventas/create/**"
     };
     
     public static final String privilegesUsuarios[]= {
@@ -48,7 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/rest/v1/proveedor/**",
             "/rest/v1/empleado/**",
             "/rest/v1/categoria/**",
-            "/rest/v1/categoria/eliminar/**"
+            "/rest/v1/categoria/eliminar/**",
+            "/rest/v1/caracterizticas/**"
     };
     public static final String permitAll[]= {
             "/stripe/paymentIntent",
@@ -56,7 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/validarCodigoVerificacion/**",
             "/registrar/**",
             "/",
-            "/rest/v1/usuarios/crearToken"
+            "/rest/v1/usuarios/crearToken",
+            "/p/**"
     };
 
     // Configurar la parte generica

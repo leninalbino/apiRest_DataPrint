@@ -54,6 +54,11 @@ public class UsuariosServiceImpl implements UsuariosService {
 		return repository.findAllByCorreo(correo);
 	}
 
+	@Override
+	public Usuarios encontrarCorrero(String correo) {
+		return repository.findByCorreo(correo);
+	}
+
 
 	//*************************************************************************************************
 

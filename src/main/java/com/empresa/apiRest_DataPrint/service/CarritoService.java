@@ -11,5 +11,6 @@ public interface CarritoService {
     public List<Carrito> listarCarrito(Long idUsuario, Long idCaracteristica);
     public Optional eliminarItemCarrito(Long id);
     public Carrito actualizarItemCarrito(Integer cantidad, Long id);
+    public List<Carrito> encontrarItemUsuario(Long idUsuario);
 
 }

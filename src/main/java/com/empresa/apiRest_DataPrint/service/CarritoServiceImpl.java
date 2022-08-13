@@ -76,5 +76,10 @@ public class CarritoServiceImpl implements  CarritoService{
 
     }
 
+    @Override
+    public List<Carrito> encontrarItemUsuario(Long idUsuario) {
+        return carritoRepository.encontrarItemUsuario(idUsuario);
+    }
+
 
 }
