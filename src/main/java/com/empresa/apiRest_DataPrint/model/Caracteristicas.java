@@ -30,6 +30,7 @@ public class Caracteristicas implements Serializable {
     
     @Column(name = "cantidCaract")
     private Integer cantidCaract;
+
     @Column(name = "precioCaract")
     private Double precioCaract;
     

@@ -42,4 +42,8 @@ public class Carrito implements Serializable {
     public boolean actualizarCantidad(Integer cantidad){
         return cantidad == null  || cantidad <= 0 || this.getCaracteristica().validar_cantidad(cantidad);
     }
+
+    public Double precioTotal(){
+        return caracteristica.getPrecioCaract()* cantidad;
+    }
 }

@@ -23,7 +23,7 @@ public class DetalleVenta {
 	@JoinColumn(name = "caracteristica_id")
 	private Caracteristicas caracteristica;
 	private Integer cantida;
-	private Float precio;
+	private Double precio;
 	private Float descuento;
 	@ManyToOne
 	@JoinColumn(name = "venta_id")

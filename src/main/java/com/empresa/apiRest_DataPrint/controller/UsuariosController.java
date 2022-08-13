@@ -86,20 +86,25 @@ public class UsuariosController {
 
 
 	@PostMapping("/crearToken")
-	public ResponseEntity<?> crearToken(@RequestBody UsuarioRequestDTO usuarioRequestDTO) {
+	public ResponseEntity<AuthToken> crearToken(@RequestBody UsuarioRequestDTO usuarioRequestDTO) {
 		final Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(
 						usuarioRequestDTO.getCorreo(),
 						usuarioRequestDTO.getClave()
 				)
 		);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		final String token = util.generateToken( authentication);
-		return ResponseEntity.ok(new AuthToken(token));
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		AuthToken authToken = new AuthToken(token, userDetails.getUsername());
+		System.out.println("00000"+ userDetails + authToken);
+		return ResponseEntity.ok(authToken);
 	}
 	@PostMapping("/refresh")
 	public ResponseEntity<UsuarioResponseDTO> refresh(@RequestBody UsuarioResponseDTO jwtDto) throws ParseException {
 		String token = util.refreshToken(jwtDto);
 		UsuarioResponseDTO jwt = new UsuarioResponseDTO(token);
+
 		return new ResponseEntity(jwt, HttpStatus.OK);
 	}
 }
