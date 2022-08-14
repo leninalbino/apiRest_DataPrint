@@ -47,7 +47,7 @@ public class ProductoServiceImpl implements ProductoService{
 	@Override
 	public Producto agregarProducto(Producto producto) {
 		
-        Categorias categorias = categoriaRepository.findById(producto.getCategoria().getIdcategorias()).orElse(null);
+       // Categorias categorias = categoriaRepository.findById(producto.getCategoria().getIdcategorias()).orElse(null);
         //Producto product = new Producto();
         
         //List<Producto> p= new ArrayList<Producto>();
