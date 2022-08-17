@@ -17,6 +17,8 @@ public interface UsuariosService {
 
 	List<Usuarios> findByCorreo(String correo);
 
+	Usuarios encontrarCorrero(String correo);
+
 	//*******************************************************************
 
 }

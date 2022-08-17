@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.apiRest_DataPrint.model.Empleado;
+import com.empresa.apiRest_DataPrint.model.Proveedor;
 import com.empresa.apiRest_DataPrint.service.EmpleadoService;
 
 @RestController
@@ -82,38 +83,17 @@ public class EmpleadoController {
 	
 	@PutMapping("/actualizarEmpleado")
 	public ResponseEntity<?> actualizarEmpleado(@RequestBody Empleado empleado){
-		Map<String, Object> response= new HashMap<>();
-		
-		Empleado e=empleadoService.buscarByDni(empleado.getDniEml());
-		Empleado emple=empleadoService.buscarEmpleadoId(empleado.getIdEmpleado());
-		if(emple !=null) {
-			if(e ==null) {
-				empleadoService.actualizarEmpleado(empleado);
-				response.put("Mensaje", "Actualizado correctamente");
-			}else {
-				response.put("Mensaje", "Error: El nombre del empleado ya existe");
-			}
+		Empleado emple=empleadoService.obtenerEmpleadoId(empleado.getIdEmpleado());
+		Map<String, Object> response=new HashMap<>();
+		if(emple!=null) {
+			empleadoService.actualizarEmpleado(empleado);
+			response.put("Mensaje", "Empleado actualizado correctamente"); 
 		}else {
 			response.put("Mensaje", "Empleado no existe");
+			
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(response);
+		}
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-}

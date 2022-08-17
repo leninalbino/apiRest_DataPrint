@@ -3,9 +3,11 @@ package com.empresa.apiRest_DataPrint.WebSecurityConfigurer;
 import com.empresa.apiRest_DataPrint.model.Roles;
 import com.empresa.apiRest_DataPrint.model.Usuarios;
 import com.empresa.apiRest_DataPrint.repository.UsuariosRepository;
+import com.empresa.apiRest_DataPrint.service.UsuariosService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,16 +24,19 @@ import java.util.stream.Collectors;
 public class UsuarioDetailService implements UserDetailsService {
     private Logger logger= LoggerFactory.getLogger(UsuarioDetailService.class);
     @Autowired
-    private UsuariosRepository usuarioRepositorio;
+    private UsuariosService usuariosService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuarios usuario = usuarioRepositorio.findByCorreo(username);
-        if(usuario == null){
-            new UsernameNotFoundException("Usuario no encontrado con ese username o email : " + username);
+    public UserDetails loadUserByUsername(String username)
+                        throws UsernameNotFoundException, ResponseStatusException {
 
-        }
-        return new User(usuario.getCorreo(), usuario.getClave(),usuario.getEnable(),true,true,true , mapearRoles(usuario.getRoles()));
+        Usuarios usuario = usuariosService.encontrarCorrero(username);
+        //if(usuario == null){
+           // new UsernameNotFoundException("Usuario no encontrado con ese username o email : " + username);
+            //new  ResponseStatusException(HttpStatus.UNAUTHORIZED,"Usuario no encontrado con ese username o email");
+        //}
+       // return new User(usuario.getCorreo(), usuario.getClave(),usuario.getEnable(),true,true,true , mapearRoles(usuario.getRoles()));
+        return new MyUserDetails(usuario);
     }
 
     private List<GrantedAuthority> mapearRoles(List<Roles> roles){

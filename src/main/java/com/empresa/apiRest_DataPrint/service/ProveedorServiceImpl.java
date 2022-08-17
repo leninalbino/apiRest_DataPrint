@@ -3,11 +3,11 @@ package com.empresa.apiRest_DataPrint.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.empresa.apiRest_DataPrint.model.Categorias;
+
 import com.empresa.apiRest_DataPrint.model.Proveedor;
 import com.empresa.apiRest_DataPrint.repository.ProveedorRepository;
 
@@ -34,13 +34,6 @@ public class ProveedorServiceImpl implements ProveedorService {
 
 	@Override
 	public Proveedor actualizarProveedor(Proveedor proveedor) {
-		Proveedor p= new Proveedor();
-		p.setNombreEmpresa(proveedor.getNombreEmpresa());
-		p.setIdProveedor(proveedor.getIdProveedor());
-		p.setCorreo(proveedor.getCorreo());
-		p.setTelefono(proveedor.getTelefono());
-		p.setDireccion(proveedor.getDireccion());
-		
 		return proveedorRepository.saveAndFlush(proveedor);
 	}
 
@@ -67,6 +60,20 @@ public class ProveedorServiceImpl implements ProveedorService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Proveedor obtenerProveeorId(Long id) {
+//		Proveedor proveedor = proveedorRepository.findById(id).orElse(null);
+//		Proveedor p = new Proveedor();
+//		
+//		p.setIdProveedor(proveedor.getIdProveedor());
+//		p.setNombreEmpresa(proveedor.getNombreEmpresa());
+//		p.setDireccion(proveedor.getDireccion());
+//		p.setCorreo(proveedor.getCorreo());
+//		p.setTelefono(proveedor.getTelefono());
+
+		return proveedorRepository.findByIdProveedor(id);
 	}
 
 }

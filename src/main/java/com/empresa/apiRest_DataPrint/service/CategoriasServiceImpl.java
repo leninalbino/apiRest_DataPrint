@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.empresa.apiRest_DataPrint.model.Categorias;
+import com.empresa.apiRest_DataPrint.model.Proveedor;
 import com.empresa.apiRest_DataPrint.repository.CategoriasRepository;
 
 @Service
@@ -26,9 +27,6 @@ public class CategoriasServiceImpl implements CategoriasService {
 
 	@Override
 	public Categorias editarCategorias(Categorias categoria) {
-		Categorias c = new Categorias();
-		c.setNombreCate(categoria.getNombreCate());
-		c.setIdcategorias(categoria.getIdcategorias());
 		return categoriasRespository.saveAndFlush(categoria);
 		
 	}
@@ -79,6 +77,12 @@ public class CategoriasServiceImpl implements CategoriasService {
 		}
 		return false;
 	}
+
+	@Override
+	public Categorias obtenerCategoriaId(Long id) {
+		return categoriasRespository.findByIdcategorias(id);
+	}
+
 	
 
 }

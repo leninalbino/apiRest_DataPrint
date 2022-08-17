@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.empresa.apiRest_DataPrint.model.Categorias;
+
 import com.empresa.apiRest_DataPrint.model.Empleado;
 import com.empresa.apiRest_DataPrint.repository.EmpleadoRepository;
 
@@ -28,15 +28,6 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public Empleado actualizarEmpleado(Empleado empleado) {
-		Empleado e=new Empleado();
-		e.setNombresEml(empleado.getNombresEml());
-		e.setIdEmpleado(empleado.getIdEmpleado());
-		e.setApellidosEmpl(empleado.getApellidosEmpl());
-		e.setCorreoEmpl(empleado.getCorreoEmpl());
-		e.setDniEml(empleado.getDniEml());
-		e.setPasswordEmpl(empleado.getPasswordEmpl());
-		e.setEstadoEmpl(empleado.getEstadoEmpl());
-		
 		return empleadoRepository.saveAndFlush(empleado);
 	}
 
@@ -68,6 +59,11 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Empleado obtenerEmpleadoId(Long id) {
+		return empleadoRepository.findByIdEmpleado(id);
 	}
 
 }

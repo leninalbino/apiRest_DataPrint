@@ -49,6 +49,7 @@ src/main/resources/application.properties
 *.ipr
 *.build
 
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

@@ -1,9 +1,9 @@
 package com.empresa.apiRest_DataPrint.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.empresa.apiRest_DataPrint.model.Categorias;
+import com.empresa.apiRest_DataPrint.model.Proveedor;
 
 public interface CategoriasService {
 	
@@ -19,5 +19,7 @@ public interface CategoriasService {
 	public Categorias buscarCategoriasId(Long id);
 	
 	public Categorias buscarByNombre(String nombre);
+	
+	public Categorias obtenerCategoriaId(Long id);
 	
 }

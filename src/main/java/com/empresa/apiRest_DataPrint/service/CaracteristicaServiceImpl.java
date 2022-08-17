@@ -42,7 +42,7 @@ public class CaracteristicaServiceImpl implements CaracteristicaService {
 	
 	@Override
 	public Caracteristicas registrarCaracterizticas(Caracteristicas caracterizticas) {
-		Producto productos= productoRepository.findById(caracterizticas.getProducto().getIdProductoPro()).orElse(null);
+		//Producto productos= productoRepository.findById(caracterizticas.getProducto().getIdProductoPro()).orElse(null);
 		return caracteristicaRepository.save(caracterizticas);
 		
 	}

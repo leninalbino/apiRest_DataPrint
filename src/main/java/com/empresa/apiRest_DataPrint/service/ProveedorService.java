@@ -1,7 +1,6 @@
 package com.empresa.apiRest_DataPrint.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.empresa.apiRest_DataPrint.model.Proveedor;
 
@@ -15,10 +14,10 @@ public interface ProveedorService {
 	
 	public Proveedor actualizarProveedor(Proveedor proveedor);
 	
-	//public Optional eliminarProveedor(Long id);
-	
 	boolean eliminarProveedores(Long id);
 	
 	public Proveedor buscarByNombre(String nombre);
+	
+	public Proveedor obtenerProveeorId(Long id);
 
 }

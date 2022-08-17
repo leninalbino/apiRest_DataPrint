@@ -2,19 +2,14 @@ package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 @Data
@@ -29,7 +24,7 @@ public class Ventas implements Serializable{
     private Long idventas;
 
     @Column(name = "precioTotal")
-    private float precioTotal;
+    private double precioTotal;
 
     @Column(name = "fecvent")
     @Temporal(TemporalType.TIMESTAMP)
@@ -42,4 +37,12 @@ public class Ventas implements Serializable{
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuarios usuarios;
+
+    @OneToMany(mappedBy = "venta",cascade=CascadeType.ALL)
+    @JsonIgnoreProperties("venta")
+    private List<DetalleVenta> detalleVentas = new ArrayList<>();
+
+    public void agregarDetalleVenta(DetalleVenta detalleVenta){
+        detalleVentas.add(detalleVenta);
+    }
 }

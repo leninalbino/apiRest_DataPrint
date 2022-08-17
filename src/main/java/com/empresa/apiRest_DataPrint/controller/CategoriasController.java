@@ -55,13 +55,9 @@ public class CategoriasController {
 	@PostMapping("/agregar")
 	public ResponseEntity<?> agregar(@RequestBody Categorias categoria){
 		Map<String, Object> response= new HashMap<String, Object>();
-		//Categorias cat ;
 		Categorias c=categoriaService.buscarByNombre(categoria.getNombreCate());
-		//cat = categoriaService.buscarByNombre(categoria.getNombreCate());
 		if(c != null) {
 			response.put("Mensaje", "Nombre categoria ya existe");
-			
-			//return  ResponseEntity.ok(response);
 		}else {
 			Categorias categorias=categoriaService.agregarCategorias(categoria);
 			response.put("Mensaje", "Registrado correctamento");
@@ -69,60 +65,20 @@ public class CategoriasController {
 		}
 		return  ResponseEntity.status(HttpStatus.CREATED).body(response);	
 	}
-	@PutMapping
-	@RequestMapping("/actualizarCategoria")
+	@PutMapping("/actualizarCategoria")
     public ResponseEntity<?>actualizarCategoria(@RequestBody Categorias categoria){
-//		Categorias p = categoriaService.buscarCategoriasId(categoria.getIdcategorias());
-//		if (p != null) {
-//			categoriaService.editarCategorias(categoria);;
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		}else {
-//			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-//		}
-		
-		
-		Map<String, Object> response= new HashMap<>();
-		 
-		 Categorias c = categoriaService.buscarByNombre(categoria.getNombreCate());
-		 Categorias cate= categoriaService.buscarCategoriasId(categoria.getIdcategorias());
-		 
-		
-		 if(cate != null) {
-			 if(c ==null) {
-				 categoriaService.editarCategorias(categoria);
-				 response.put("Mensaje", "Actualizado correctamente");
-			 }else {
-				 response.put("Mensaje", "Error: El nombre de la categoria ya existe");
-			 }
-			 
-		 }else {
-			 response.put("Mensaje", "Categoria no existe"); 
-		 } 
-		 return ResponseEntity.status(HttpStatus.CREATED).body(response); 
-		 
-	 
+		Categorias cate=categoriaService.obtenerCategoriaId(categoria.getIdcategorias());
+		Map<String, Object> response=new HashMap<>();
+		if(cate!=null) {
+			categoriaService.editarCategorias(categoria);
+			response.put("Mensaje", "Categoria actualizado correctamente"); 
+		}else {
+			response.put("Mensaje", "Categoria no existe");		
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-	//@DeleteMapping
-	//@RequestMapping(path = "/eliminar/{id}")
-	//public ResponseEntity<?> eliminarCategorias(@PathVariable("id") Long id){
-		
-	//	Map<String, Object> response = new HashMap<>();
-		 
-	//	 Categorias c = categoriaService.buscarCategoriasId(id);
-		 
-	//	 if(c !=null) {
-	//		 categoriaService.eliminarCategorias(id);
-	//		 response.put("Mensaje", "Categoria eliminado correctamente");
-	//		 return ResponseEntity.ok(response);	 
-	//	 }else {
-	//		 response.put("Mensaje", "Categoria no existe");
-	//		 return ResponseEntity.ok(response); 
-	//	 } 
-	//}
 	@DeleteMapping(path ="/eliminar/{id}")
 	public boolean eliminar(@PathVariable("id") Long id) {
 		return categoriaService.eliminarCategorias(id);
 	}
-	
-
 }
