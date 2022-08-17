@@ -87,6 +87,7 @@ public class UsuariosController {
 
 	@PostMapping("/crearToken")
 	public ResponseEntity<AuthToken> crearToken(@RequestBody UsuarioRequestDTO usuarioRequestDTO) {
+
 		final Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(
 						usuarioRequestDTO.getCorreo(),
@@ -95,9 +96,10 @@ public class UsuariosController {
 		);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		final String token = util.generateToken( authentication);
-		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-		AuthToken authToken = new AuthToken(token, userDetails.getUsername());
-		System.out.println("00000"+ userDetails + authToken);
+		//UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        Usuarios usuarios = service.encontrarCorrero(usuarioRequestDTO.getCorreo());
+		AuthToken authToken = new AuthToken(token,usuarios.getNombre()+" "+usuarios.getApellido(),usuarios.getCorreo());
+		//System.out.println("00000"+ userDetails + authToken);
 		return ResponseEntity.ok(authToken);
 	}
 	@PostMapping("/refresh")
