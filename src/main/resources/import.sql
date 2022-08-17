@@ -1,6 +1,8 @@
 
 INSERT into usuarios (correo, clave , enable) values ('admin@gmail.com', '$2a$12$3PClXBgrJyqGRz5VvRkpQezeLEbdG39AkeST.zAfkbVJMAR3wADu2', 1);
 INSERT into usuarios (correo, clave , enable) values ('cliente@gmail.com', '$2a$12$7BIYCEADFZVs63CXAqj0/uKmjzN78wnjZL2GiyBAPr.OnXXtqh68O', 1)
+INSERT into usuarios (correo, clave , enable) values ('admin2@gmail.com', '$2a$12$1MDqLI82v6VNdT7hgsmJp.qYRA68y40B5LURz1QU9FwJ1BVOe8efC', 1)
+
 
 insert into roles (rol) values ('ROLE_ADMIN');
 insert into roles (rol) values ('ROLE_CLIENTE');
@@ -8,6 +10,7 @@ insert into roles (rol) values ('ROLE_EMPLEADO');
 
 INSERT INTO usuarios_roles (usuario_id, role_id) values (1,1);
 INSERT INTO usuarios_roles (usuario_id, role_id) values (2,2);
+INSERT INTO usuarios_roles (usuario_id, role_id) values (3,1);
 
 INSERT INTO `dbdataprint`.`categorias` (`nombreCate`) VALUES ('Útiles de oficina');
 INSERT INTO `dbdataprint`.`categorias` (`nombreCate`) VALUES ('Laminas escolares');

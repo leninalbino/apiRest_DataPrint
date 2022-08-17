@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.empresa.apiRest_DataPrint.model.Caracteristicas;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,9 @@ public class ProductoController {
 			 
 		 }else {
 			 Producto productos =productoSer.agregarProducto(producto);
+			// Caracteristicas caracteristicas = new Caracteristicas();
+			 //caracteristicas.setProducto(producto);
+			 //productos.agregarProductoCaracterisitica(caracteristicas);
 			 response.put("Mensaje", "Producto registrado correctamente");
 		 }
 	        return ResponseEntity.status(HttpStatus.CREATED).body(response);

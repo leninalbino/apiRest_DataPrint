@@ -1,17 +1,10 @@
 package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -39,14 +32,16 @@ public class Producto implements Serializable {
     private Categorias categoria;
 
    	//@JsonIgnore
-    @OneToMany(mappedBy = "producto")
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("producto")
-    private List<Caracteristicas> caracteristicas;
+    private List<Caracteristicas> caracteristicas = new ArrayList<>();
 
 
 	//public static long getSerialversionuid() {
 		//return serialVersionUID;
 	//}
-    
+    public void agregarProductoCaracterisitica( Caracteristicas caracteristica){
+        this.caracteristicas.add(caracteristica);
+    }
     
 }
