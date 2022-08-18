@@ -39,9 +39,9 @@ public class HomeController {
         Producto producto = productoService.buscarProductoId(id);
         return ResponseEntity.ok(producto);
     }
-    
-//    @GetMapping("/")
-//	public ResponseEntity<List<Categorias>> listarCategorias(){
-//		return new ResponseEntity<List<Categorias>>(categoriaService.listarCategorias(), HttpStatus.OK);
-//	}
+
+    @GetMapping("/listaCategoria")
+    public ResponseEntity<List<Categorias>> listarCategorias() {
+        return new ResponseEntity<List<Categorias>>(categoriaService.listarCategorias(), HttpStatus.OK);
+    }
 }

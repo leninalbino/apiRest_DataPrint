@@ -42,5 +42,8 @@ public class Caracteristicas implements Serializable {
         return this.getCantidCaract()>0 && cantidad<=this.getCantidCaract();
     }
 
+    public void  descontarCantidadCaracteristica(Integer cantidad){
+        this.cantidCaract -= cantidad;
+    }
 
 }

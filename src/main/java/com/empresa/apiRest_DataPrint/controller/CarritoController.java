@@ -45,22 +45,20 @@ public class CarritoController {
                                             @RequestParam ("cantidad") Integer cantidad,
                                             Principal principal ){
         Map <String,Object> response = new HashMap<>();
-            Integer totalCantidad=0;
-            Caracteristicas caracteristicas =caracteristicaService.buscarCaracteristicaId(caracteristica_id);
-            Usuarios usuarios = usuariosRepository.findByCorreo(principal.getName());
-            List<Carrito> items= carritoService.listarCarrito(usuarios.getIdusuarios(), caracteristica_id);
-           for(Carrito item: items){
-                totalCantidad += (item.getCantidad()+cantidad);
-           }
-           if(totalCantidad > caracteristicas.getCantidCaract()){
-               response.put("mensaje","La cantidad agregada "+ totalCantidad + " es superior a la cantidad del producto "+ caracteristicas.getCantidCaract());
-                return ResponseEntity.status(HttpStatus.OK).body(response);
-           }
-           carritoService.agregarCarrito(cantidad,caracteristica_id,usuarios.getIdusuarios());
-            response.put("mensaje", "item agregado correctamente");
-           return ResponseEntity.status(HttpStatus.CREATED).body(response);
-
-
+        Integer totalCantidad=0;
+        Caracteristicas caracteristicas =caracteristicaService.buscarCaracteristicaId(caracteristica_id);
+        Usuarios usuarios = usuariosRepository.findByCorreo(principal.getName());
+        List<Carrito> items= carritoService.listarCarrito(usuarios.getIdusuarios(), caracteristica_id);
+        for(Carrito item: items){
+            totalCantidad += (item.getCantidad()+cantidad);
+        }
+        if(totalCantidad > caracteristicas.getCantidCaract()){
+            response.put("mensaje","La cantidad agregada "+ totalCantidad + " es superior a la cantidad del producto "+ caracteristicas.getCantidCaract());
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+        carritoService.agregarCarrito(cantidad,caracteristica_id,usuarios.getIdusuarios());
+        response.put("mensaje", "Prodcuto agregado correctamente");
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     @DeleteMapping("/eliminarItemCarrito/{id}")
     public ResponseEntity<?> eliminarItemCarrito(@PathVariable("id") long id){
@@ -73,13 +71,16 @@ public class CarritoController {
     public ResponseEntity<?>actualizarItemCarrito(@PathVariable("cantidad") Integer cantidad,
                                                   @PathVariable("idCarrito") long idCarrito){
         Map <String,Object> response = new HashMap<>();
-        var carrito=carritoService.actualizarItemCarrito(cantidad,idCarrito);
-        if (carrito != null){
-            response.put("mensaje", "Actualizado Correctamente");
-            return ResponseEntity.ok(response);
+        if (cantidad >0){
+            var carrito=carritoService.actualizarItemCarrito(cantidad,idCarrito);
+            if (carrito != null  ){
+                response.put("mensaje", "Actualizado Correctamente");
+                return ResponseEntity.ok(response);
+            }
         }
+
         response.put("mensaje", "No se puede actualizar");
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
     public Map<String,Object> message(String message){
         Map <String,Object> response = new HashMap<>();

@@ -81,5 +81,10 @@ public class CarritoServiceImpl implements  CarritoService{
         return carritoRepository.encontrarItemUsuario(idUsuario);
     }
 
+    @Override
+    public void eliminarCarritos(Long id) {
+        carritoRepository.eliminarCarritos(id);
+    }
+
 
 }
