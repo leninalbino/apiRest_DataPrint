@@ -98,8 +98,8 @@ public class UsuariosController {
 		final String token = util.generateToken( authentication);
 		//UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         Usuarios usuarios = service.encontrarCorrero(usuarioRequestDTO.getCorreo());
-		AuthToken authToken = new AuthToken(token,usuarios.getNombre()+" "+usuarios.getApellido(),usuarios.getCorreo());
-		//System.out.println("00000"+ userDetails + authToken);
+		AuthToken authToken = new AuthToken(token,usuarios.getNombre()+" "+usuarios.getApellido(),
+				usuarios.getCorreo(), usuarios.getRoles().get(0).getRol());
 		return ResponseEntity.ok(authToken);
 	}
 	@PostMapping("/refresh")
