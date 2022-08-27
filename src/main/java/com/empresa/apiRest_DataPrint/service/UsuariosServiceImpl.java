@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import com.empresa.apiRest_DataPrint.model.Usuarios;
 import com.empresa.apiRest_DataPrint.repository.UsuariosRepository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service(value="userService")
 public class UsuariosServiceImpl implements UsuariosService {
@@ -56,7 +58,11 @@ public class UsuariosServiceImpl implements UsuariosService {
 
 	@Override
 	public Usuarios encontrarCorrero(String correo) {
-		return repository.findByCorreo(correo);
+		Usuarios usuarios = repository.findByCorreo(correo);
+		if(usuarios==null){
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El usuario no existe");
+		}
+		return usuarios;
 	}
 
 

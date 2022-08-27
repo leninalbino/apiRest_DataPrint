@@ -59,7 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/registrar/**",
             "/",
             "/rest/v1/usuarios/crearToken",
-            "/p/**"
+            "/p/**",
+            "/listaCategoria"
     };
 
     // Configurar la parte generica

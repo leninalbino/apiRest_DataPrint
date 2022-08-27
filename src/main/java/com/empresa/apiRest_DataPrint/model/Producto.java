@@ -1,6 +1,7 @@
 package com.empresa.apiRest_DataPrint.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +18,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.*;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -37,15 +40,6 @@ public class Producto implements Serializable {
     private String nombrePro;
 
     private boolean estadoPro;
-
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinTable(name="product_images",joinColumns = {
-        @JoinColumn(name ="idProductoPro")
-    }, 
-    inverseJoinColumns = {
-        @JoinColumn(name="image_id")
-    })
-    private Set<ImagenModel>productImages;
         
 	//@JsonIgnore
     @ManyToOne
@@ -53,14 +47,15 @@ public class Producto implements Serializable {
     private Categorias categoria;
 
    	//@JsonIgnore
-    @OneToMany(mappedBy = "producto")
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("producto")
-    private List<Caracteristicas> caracteristicas;
-
+    private List<Caracteristicas> caracteristicas = new ArrayList<>();
 
 	//public static long getSerialversionuid() {
 		//return serialVersionUID;
 	//}
-    
+    public void agregarProductoCaracterisitica( Caracteristicas caracteristica){
+        this.caracteristicas.add(caracteristica);
+    }
     
 }

@@ -10,6 +10,9 @@ import lombok.*;
 public class AuthToken {
     private String token;
     private  String user;
+    private String correo;
+    private String rol;
+    //private Long idUsuario;
 
 
    }

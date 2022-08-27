@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.empresa.apiRest_DataPrint.model.Caracteristicas;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,62 +57,6 @@ public class ProductoController {
 
 	}
 
-	/*
-	 * @PostMapping(value = { "/agregarProducto" }, consumes = {
-	 * MediaType.MULTIPART_FORM_DATA_VALUE })
-	 * public ResponseEntity<?> agregarProducto(@RequestPart("producto") Producto
-	 * producto,
-	 * 
-	 * @RequestPart("imageFile") MultipartFile[] file) {
-	 * 
-	 * try {
-	 * Set<ImagenModel> images = uploadImage(file);
-	 * producto.setProductImages(images);
-	 * 
-	 * Map<String, Object> response = new HashMap<>();
-	 * Producto p = productoSer.buscarByNombre(producto.getNombrePro());
-	 * System.out.println(producto);
-	 * if (p != null) {
-	 * response.put("Mensaje", "Ya existe producto");
-	 * 
-	 * } else {
-	 * Producto productos = productoSer.agregarProducto(producto);
-	 * response.put("Mensaje", "Producto registrado correctamente");
-	 * }
-	 * return ResponseEntity.status(HttpStatus.CREATED).body(response);
-	 * } catch (Exception e) {
-	 * System.out.println(e.getMessage());
-	 * return null;
-	 * }
-	 * 
-	 * }
-	 */
-	@PostMapping(value = { "/agregarProducto" }, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-	public Producto agregarProducto(@RequestPart("producto") Producto producto,
-									@RequestPart("imageFile") MultipartFile[] file) {
-
-		try {
-			Set<ImagenModel> images = uploadImage(file);
-			producto.setProductImages(images);
-			return productoSer.agregarProducto(producto);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return null;
-		}
-
-	}
-
-	public Set<ImagenModel> uploadImage(MultipartFile[] multipartFiles) throws IOException {
-		Set<ImagenModel> imageModels = new HashSet<>();
-		for (MultipartFile file : multipartFiles) {
-			ImagenModel imageModel = new ImagenModel(
-					file.getOriginalFilename(),
-					file.getContentType(),
-					file.getBytes());
-			imageModels.add(imageModel);
-		}
-		return imageModels;
-	}
 
 	@DeleteMapping("/eliminarProducto/{id}")
 	public ResponseEntity<?> elminarProducto(@PathVariable("id") long id) {
@@ -149,5 +94,24 @@ public class ProductoController {
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
+	@PostMapping("/agregarProducto")
+	public ResponseEntity<?> agregarProducto(@RequestBody Producto producto){
+		 
+		 Map<String, Object> response= new HashMap<>();
+		 
+		 Producto p = productoSer.buscarByNombre(producto.getNombrePro());
+		 
+		 if(p != null) {
+			 response.put("Mensaje", "Ya existe producto");
+			 
+		 }else {
+			 Producto productos =productoSer.agregarProducto(producto);
+			// Caracteristicas caracteristicas = new Caracteristicas();
+			 //caracteristicas.setProducto(producto);
+			 //productos.agregarProductoCaracterisitica(caracteristicas);
+			 response.put("Mensaje", "Producto registrado correctamente");
+		 }
+	        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	    }
 
 }

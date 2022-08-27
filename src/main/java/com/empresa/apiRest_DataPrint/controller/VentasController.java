@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("api/v1/ventas")
+@RequestMapping("/rest/v1/ventas")
 public class VentasController {
 
     @Autowired
@@ -37,7 +39,7 @@ public class VentasController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create (Principal principal){
-
+        Map<String,Object> response = new HashMap<>();
         Ventas ventas = new Ventas();
         Usuarios usuarios = usuariosService.encontrarCorrero(principal.getName());
         List<Carrito> carritos= carritoService.encontrarItemUsuario(usuarios.getIdusuarios());
@@ -52,10 +54,13 @@ public class VentasController {
             detalleVenta.setCaracteristica(carrito.getCaracteristica());
             detalleVenta.setPrecio(carrito.getCaracteristica().getPrecioCaract());
             detalleVenta.setCantida(carrito.getCantidad());
+            carrito.getCaracteristica().descontarCantidadCaracteristica(carrito.getCantidad());
             ventas.agregarDetalleVenta(detalleVenta);
         });
         ventasService.create(ventas);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ventas);
+        carritoService.eliminarItemCarrito(usuarios.getIdusuarios());
+        response.put("mensaje", "Se creo su orden correctamente");
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 }
